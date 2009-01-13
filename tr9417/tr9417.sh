@@ -15,6 +15,18 @@ rm -rf ${LOG}
 touch ${LOG}
  
 #
+# load probe/references
+#
+echo "\n`date`" >> ${LOG}
+echo "Load these Probe/References" >> ${LOG}
+/mgi/all/wts_projects/9400/9417/addreferences.py >> ${LOG}
+if [ $? -ne 0 ]
+then
+    echo 'addreferences.py failed' >> ${LOG}
+    exit 1
+fi
+
+#
 # Copy fullsize and thumbnail images to Pixel DB.
 #
 echo "\n`date`" >> ${LOG}
