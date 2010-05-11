@@ -26,6 +26,8 @@ then
     exit 1
 fi
 
+exit 0
+
 #
 # Create fullsize image input files for the GXD image load.
 #
