@@ -53,14 +53,14 @@ fi
 #
 # Create the literature index for the new assays.
 #
-echo "\n`date`" >> ${LOG}
-echo "Create the literature index for the new assays" >> ${LOG}
-${ASSAYLOAD}/indexload.py >> ${LOG}
-if [ $? -ne 0 ]
-then
-    echo 'indexload.py failed' >> ${LOG}
-    exit 1
-fi
+#echo "\n`date`" >> ${LOG}
+#echo "Create the literature index for the new assays" >> ${LOG}
+#${ASSAYLOAD}/indexload.py >> ${LOG}
+#if [ $? -ne 0 ]
+#then
+#    echo 'indexload.py failed' >> ${LOG}
+#    exit 1
+#fi
 
 #
 # Reload the MRK_Reference table.

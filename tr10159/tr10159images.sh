@@ -1,14 +1,14 @@
 #!/bin/sh
 
 #
-# TR 10161
+# TR 10159
 #
 # Wrapper script for loading
 #
 
 cd `dirname $0`
 
-. ./tr10161.config
+. ./tr10159.config
 
 LOG=${PROJECTDIR}/$0.log
 rm -rf ${LOG}
@@ -18,7 +18,7 @@ touch ${LOG}
 # Copy fullsize and thumbnail images to Pixel DB.
 #
 echo "\n`date`" >> ${LOG}
-echo "Copy fullsize to Pixel DB" >> ${LOG}
+echo "Copy fullsize and thumbnail images to Pixel DB" >> ${LOG}
 ${GXDIMAGELOAD}/pixload.sh >> ${LOG}
 if [ $? -ne 0 ]
 then
@@ -26,17 +26,15 @@ then
     exit 1
 fi
 
-exit 0
-
 #
 # Create fullsize image input files for the GXD image load.
 #
 echo "\n`date`" >> ${LOG}
 echo "Create fullsize image input files for the GXD image load" >> ${LOG}
-${GXDIMAGELOAD}/tr10161fullsize.py >> ${LOG}
+${GXDIMAGELOAD}/tr10159fullsize.py >> ${LOG}
 if [ $? -ne 0 ]
 then
-    echo 'tr10161fullsize.py failed' >> ${LOG}
+    echo 'tr10159fullsize.py failed' >> ${LOG}
     exit 1
 fi
 
@@ -93,10 +91,10 @@ cd `dirname $0`
 #
 echo "\n`date`" >> ${LOG}
 echo "Create thumbnail image input files for the GXD image load" >> ${LOG}
-${GXDIMAGELOAD}/tr10161thumbnail.py >> ${LOG}
+${GXDIMAGELOAD}/tr10159thumbnail.py >> ${LOG}
 if [ $? -ne 0 ]
 then
-    echo 'tr10161thumbnail.py failed' >> ${LOG}
+    echo 'tr10159thumbnail.py failed' >> ${LOG}
     exit 1
 fi
 
