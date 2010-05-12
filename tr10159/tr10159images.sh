@@ -17,19 +17,17 @@ touch ${LOG}
 #
 # Copy fullsize and thumbnail images to Pixel DB.
 #
-echo "\n`date`" >> ${LOG}
-echo "Copy fullsize and thumbnail images to Pixel DB" >> ${LOG}
-${GXDIMAGELOAD}/pixload.sh >> ${LOG}
-if [ $? -ne 0 ]
-then
-    echo 'pixload.sh failed' >> ${LOG}
-    exit 1
-fi
-
-exit 0
+#echo "\n`date`" >> ${LOG}
+#echo "Copy fullsize and thumbnail images to Pixel DB" >> ${LOG}
+#${GXDIMAGELOAD}/pixload.sh >> ${LOG}
+#if [ $? -ne 0 ]
+#then
+#    echo 'pixload.sh failed' >> ${LOG}
+#    exit 1
+#fi
 
 #
-# Create fullsize image input files for the GXD image load.
+# Create fullsize/thumbnail image input files for the GXD image load.
 #
 echo "\n`date`" >> ${LOG}
 echo "Create fullsize image input files for the GXD image load" >> ${LOG}
@@ -87,18 +85,6 @@ then
 fi
 
 cd `dirname $0`
-
-#
-# Create thumbnail image input files for the GXD image load.
-#
-echo "\n`date`" >> ${LOG}
-echo "Create thumbnail image input files for the GXD image load" >> ${LOG}
-${GXDIMAGELOAD}/tr10159thumbnail.py >> ${LOG}
-if [ $? -ne 0 ]
-then
-    echo 'tr10159thumbnail.py failed' >> ${LOG}
-    exit 1
-fi
 
 #
 # Create the thumbnail image stubs.

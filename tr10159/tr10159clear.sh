@@ -19,10 +19,13 @@ touch ${LOG}
 #
 cat - <<EOSQL | doisql.csh ${MGD_DBSERVER} ${MGD_DBNAME} $0 >> ${LOG}
  
-/*delete from GXD_Assay where _Assay_key >= 34624 */
-/*go */
+delete from ACC_Accession where _Accession_key >= 280223505
+go
 
-delete from GXD_Index where _Index_key >= 85113
+delete from IMG_Image where _Image_key >= 87897
+go
+
+delete from IMG_ImagePane where _ImagePane_key >= 132414
 go
 
 quit
