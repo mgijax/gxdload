@@ -17,25 +17,25 @@ touch ${LOG}
 #
 # Create the input files for the in situ load.
 #
-#echo "\n`date`" >> ${LOG}
-#echo "Create the input files for the in situ load" >> ${LOG}
-#${ASSAYLOAD}/tr10161insitu.py >> ${LOG}
-#if [ $? -ne 0 ]
-#then
-#    echo 'tr10161insitu.py failed' >> ${LOG}
-#    exit 1
-#fi
+echo "\n`date`" >> ${LOG}
+echo "Create the input files for the in situ load" >> ${LOG}
+${ASSAYLOAD}/tr10161insitu.py >> ${LOG}
+if [ $? -ne 0 ]
+then
+    echo 'tr10161insitu.py failed' >> ${LOG}
+    exit 1
+fi
 
 # Load the assays and results.
 #
-#echo "\n`date`" >> ${LOG}
-#echo "Load the assays and results" >> ${LOG}
-#${ASSAYLOAD}/insituload.py >> ${LOG}
-#if [ $? -ne 0 ]
-#then
-#    echo 'insituload.py failed' >> ${LOG}
-#    exit 1
-#fi
+echo "\n`date`" >> ${LOG}
+echo "Load the assays and results" >> ${LOG}
+${ASSAYLOAD}/insituload.py >> ${LOG}
+if [ $? -ne 0 ]
+then
+    echo 'insituload.py failed' >> ${LOG}
+    exit 1
+fi
 
 #
 #
@@ -53,14 +53,14 @@ fi
 #
 # Create the literature index for the new assays.
 #
-#echo "\n`date`" >> ${LOG}
-#echo "Create the literature index for the new assays" >> ${LOG}
-#${ASSAYLOAD}/indexload.py >> ${LOG}
-#if [ $? -ne 0 ]
-#then
-#    echo 'indexload.py failed' >> ${LOG}
-#    exit 1
-#fi
+echo "\n`date`" >> ${LOG}
+echo "Create the literature index for the new assays" >> ${LOG}
+${ASSAYLOAD}/indexload.py >> ${LOG}
+if [ $? -ne 0 ]
+then
+    echo 'indexload.py failed' >> ${LOG}
+    exit 1
+fi
 
 #
 # Reload the MRK_Reference table.
