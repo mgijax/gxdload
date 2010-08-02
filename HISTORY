@@ -1,3 +1,9 @@
+TAG: gxdload-4-3-5-1
+DATE: 08/02/2010
+STAFF: dbm
+CHANGES:
+1) Added tr9695.config and tr9695imageload.sh to get the images loaded.
+
 TAG: gxdload-4-3-4-4
 TAG: gxdload-4-3-4-3
 TAG: gxdload-4-3-4-2
