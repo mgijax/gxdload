@@ -10,7 +10,9 @@ cd `dirname $0`
 
 . ./tr9695.config
 
-LOG=${PROJECTDIR}/$0.log
+SCRIPT_NAME=`basename $0`
+
+LOG=${PROJECTDIR}/${SCRIPT_NAME}.log
 rm -rf ${LOG}
 touch ${LOG}
  
