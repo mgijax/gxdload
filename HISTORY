@@ -1,3 +1,10 @@
+TAG: gxdload-4-4-0-1
+DATE: 09/08/2010
+STAFF: dbm
+CHANGES:
+1) Added tr9695assayload.sh to get the assays loaded.
+2) Updated tr9695.config with new settings for the assay load
+
 TAG: gxdload-4-3-5-1
 DATE: 08/02/2010
 STAFF: dbm
