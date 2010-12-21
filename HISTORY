@@ -1,3 +1,10 @@
+TAG: gxdload-4-4-1-1
+DATE: 12/21/2010
+STAFF: dbm
+CHANGES:
+1) Added tr10407.config with new settings for the assay load.
+2) Added tr10407assayload.sh to get the assays loaded.
+
 TAG: gxdload-4-4-0-1
 DATE: 09/08/2010
 STAFF: dbm
