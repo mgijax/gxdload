@@ -17,18 +17,6 @@ rm -rf ${LOG}
 touch ${LOG}
  
 #
-# Copy fullsize and thumbnail images to pixel DB.
-#
-echo "\n`date`" >> ${LOG}
-echo "Copy fullsize and thumbnail images to pixel DB" >> ${LOG}
-${GXDIMAGELOAD}/tr10629pixload.sh >> ${LOG}
-if [ $? -ne 0 ]
-then
-    echo 'tr10629pixload.sh failed' >> ${LOG}
-    exit 1
-fi
-
-#
 # Create fullsize image input files for the GXD image load.
 #
 echo "\n`date`" >> ${LOG}
