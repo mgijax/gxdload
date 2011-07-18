@@ -1,14 +1,14 @@
 #!/bin/sh
 
 #
-# TR 9695
+# TR 10629
 #
-# Wrapper script for loading Eurexpress assays into GXD for TR 9695
+# Wrapper script for loading Eurexpress assays into GXD for TR 10629
 #
 
 cd `dirname $0`
 
-. ./tr9695.config
+. ./tr10629.config
 
 SCRIPT_NAME=`basename $0`
 
@@ -21,12 +21,14 @@ touch ${LOG}
 #
 echo "\n`date`" >> ${LOG}
 echo "Create the input files for the in situ load" >> ${LOG}
-${ASSAYLOAD}/tr9695.py >> ${LOG}
+${ASSAYLOAD}/tr10629.py >> ${LOG}
 if [ $? -ne 0 ]
 then
-    echo 'tr9695.py failed' >> ${LOG}
+    echo 'tr10629.py failed' >> ${LOG}
     exit 1
 fi
+
+exit 0
 
 #
 # Load the assays and results.
