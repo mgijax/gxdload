@@ -16,10 +16,10 @@ LOG=${PROJECTDIR}/${SCRIPT_NAME}.log
 rm -rf ${LOG}
 touch ${LOG}
  
-cd ${PROJECTDIR}
 #
 # Create the probe file
 #
+cd ${PROJECTDIR}
 echo "\n`date`" >> ${LOG}
 echo "Load the probe file" >> ${LOG}
 ${PROBELOAD}/primerload.csh primer.config >> ${LOG}
@@ -31,22 +31,54 @@ fi
 exit 0
 
 #
-# Create the input files for the in situ load.
+# start SuraniTableS7
 #
-#echo "\n`date`" >> ${LOG}
-#echo "Create the input files for the in situ load" >> ${LOG}
-#${ASSAYLOAD}/tr10840rtpcr1.py >> ${LOG}
-#if [ $? -ne 0 ]
-#then
-#    echo 'tr10840rtpcr1.py failed' >> ${LOG}
-#    exit 1
-#fi
 
 #
-# Create the input files for the in situ load.
+# Create the input files for the load.
 #
 echo "\n`date`" >> ${LOG}
-echo "Create the input files for the in situ load" >> ${LOG}
+echo "Create the input files for the load" >> ${LOG}
+#${ASSAYLOAD}/tr10840rtpcr1.py >> ${LOG}
+${ASSAYLOAD}/tr10840rtpcr1.py 
+if [ $? -ne 0 ]
+then
+    echo 'tr10840rtpcr1.py failed' >> ${LOG}
+    exit 1
+fi
+
+#
+# Load the assays and results.
+#
+echo "\n`date`" >> ${LOG}
+echo "Load the assays and results" >> ${LOG}
+#${ASSAYLOAD}/gelload.py >> ${LOG}
+${ASSAYLOAD}/gelload.py
+if [ $? -ne 0 ]
+then
+    echo 'gelload.py failed' >> ${LOG}
+    exit 1
+fi
+
+rm -rf ${ASSAYLOADDIR1}
+mv ${ASSAYLOADDIR} ${ASSAYLOADDIR1}
+mkdir ${ASSAYLOADDIR}
+
+exit 0
+
+#
+# end SuraniTableS7
+#
+
+#
+# start SuraniTableS6
+#
+
+#
+# Create the input files for the load.
+#
+echo "\n`date`" >> ${LOG}
+echo "Create the input files for the load" >> ${LOG}
 ${ASSAYLOAD}/tr10840rtpcr2.py
 #${ASSAYLOAD}/tr10840rtpcr2.py >> ${LOG}
 if [ $? -ne 0 ]
@@ -55,19 +87,21 @@ then
     exit 1
 fi
 
-exit 0
-
 #
 # Load the assays and results.
 #
 echo "\n`date`" >> ${LOG}
 echo "Load the assays and results" >> ${LOG}
-${ASSAYLOAD}/insituload.py >> ${LOG}
+${ASSAYLOAD}/gelload.py >> ${LOG}
 if [ $? -ne 0 ]
 then
-    echo 'insituload.py failed' >> ${LOG}
+    echo 'gelload.py failed' >> ${LOG}
     exit 1
 fi
+
+#
+# end SuraniTableS6
+#
 
 #
 # Create the literature index for the new assays.
