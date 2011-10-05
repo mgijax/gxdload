@@ -17,30 +17,29 @@ rm -rf ${LOG}
 touch ${LOG}
  
 #for primer and references
-cd ${PROJECTDIR}
+#cd ${PROJECTDIR}
 
 #
 # Create the probe file
 #
-echo "\n`date`" >> ${LOG}
-echo "Load the probe file" >> ${LOG}
-${PROBELOAD}/primerload.csh primer.config >> ${LOG}
-if [ $? -ne 0 ]
-then
-    echo 'probe load failed' >> ${LOG}
-    exit 1
-fi
+#echo "\n`date`" >> ${LOG}
+#echo "Load the probe file" >> ${LOG}
+#${PROBELOAD}/primerload.csh primer.config >> ${LOG}
+#if [ $? -ne 0 ]
+#then
+#    echo 'probe load failed' >> ${LOG}
+#    exit 1
+#fi
 
-echo "\n`date`" >> ${LOG}
-echo "Load the probe references file" >> ${LOG}
-${PROBELOAD}/probereference.csh primer.config >> ${LOG}
-if [ $? -ne 0 ]
-then
-    echo 'probe reference load failed' >> ${LOG}
-    exit 1
-fi
-
-exit 0
+#echo "\n`date`" >> ${LOG}
+#echo "Load the probe references file" >> ${LOG}
+#${PROBELOAD}/probereference.csh primer.config >> ${LOG}
+#if [ $? -ne 0 ]
+#then
+#    echo 'probe reference load failed' >> ${LOG}
+#    exit 1
+#fi
+#exit 0
 
 #
 # Create the input files for the in situ load.

@@ -16,42 +16,46 @@ LOG=${PROJECTDIR}/${SCRIPT_NAME}.log
 rm -rf ${LOG}
 touch ${LOG}
  
-#for primer and references
-#cd ${PROJECTDIR}
-
+cd ${PROJECTDIR}
 #
 # Create the probe file
 #
-#echo "\n`date`" >> ${LOG}
-#echo "Load the probe file" >> ${LOG}
-#${PROBELOAD}/primerload.csh primer.config >> ${LOG}
-#if [ $? -ne 0 ]
-#then
-#    echo 'probe load failed' >> ${LOG}
-#    exit 1
-#fi
+echo "\n`date`" >> ${LOG}
+echo "Load the probe file" >> ${LOG}
+${PROBELOAD}/primerload.csh primer.config >> ${LOG}
+if [ $? -ne 0 ]
+then
+    echo 'probe load failed' >> ${LOG}
+    exit 1
+fi
+exit 0
 
+#
+# Create the input files for the in situ load.
+#
 #echo "\n`date`" >> ${LOG}
-#echo "Load the probe references file" >> ${LOG}
-#${PROBELOAD}/probereference.csh primer.config >> ${LOG}
+#echo "Create the input files for the in situ load" >> ${LOG}
+#${ASSAYLOAD}/tr10840rtpcr1.py >> ${LOG}
 #if [ $? -ne 0 ]
 #then
-#    echo 'probe reference load failed' >> ${LOG}
+#    echo 'tr10840rtpcr1.py failed' >> ${LOG}
 #    exit 1
 #fi
-#exit 0
 
 #
 # Create the input files for the in situ load.
 #
 echo "\n`date`" >> ${LOG}
 echo "Create the input files for the in situ load" >> ${LOG}
-${ASSAYLOAD}/tr10840insitu.py >> ${LOG}
+${ASSAYLOAD}/tr10840rtpcr2.py
+#${ASSAYLOAD}/tr10840rtpcr2.py >> ${LOG}
 if [ $? -ne 0 ]
 then
-    echo 'tr10840insitu.py failed' >> ${LOG}
+    echo 'tr10840rtpcr2.py failed' >> ${LOG}
     exit 1
 fi
+
+exit 0
 
 #
 # Load the assays and results.
