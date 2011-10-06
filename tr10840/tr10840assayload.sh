@@ -19,16 +19,15 @@ touch ${LOG}
 #
 # Create the probe file
 #
-#cd ${PROJECTDIR}
-#echo "\n`date`" >> ${LOG}
-#echo "Load the probe file" >> ${LOG}
-#${PROBELOAD}/primerload.csh primer.config >> ${LOG}
-#if [ $? -ne 0 ]
-#then
-#    echo 'probe load failed' >> ${LOG}
-#    exit 1
-#fi
-#exit 0
+cd ${PROJECTDIR}
+echo "\n`date`" >> ${LOG}
+echo "Load the probe file" >> ${LOG}
+${PROBELOAD}/primerload.csh primer.config >> ${LOG}
+if [ $? -ne 0 ]
+then
+    echo 'probe load failed' >> ${LOG}
+    exit 1
+fi
 
 #
 # start SuraniTableS7
@@ -90,8 +89,6 @@ then
     echo 'gelload.py failed' >> ${LOG}
     exit 1
 fi
-
-exit 0
 
 #
 # end SuraniTableS6
