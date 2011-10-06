@@ -80,14 +80,14 @@ fi
 #
 # Reload the MRK_Reference table.
 #
-echo "\n`date`" >> ${LOG}
-echo "Reload the MRK_Reference table" >> ${LOG}
-${MRKCACHELOAD}/mrkref.csh >> ${LOG}
-if [ $? -ne 0 ]
-then
-    echo 'mrkref.csh failed' >> ${LOG}
-    exit 1
-fi
+#echo "\n`date`" >> ${LOG}
+#echo "Reload the MRK_Reference table" >> ${LOG}
+#${MRKCACHELOAD}/mrkref.csh >> ${LOG}
+#if [ $? -ne 0 ]
+#then
+#    echo 'mrkref.csh failed' >> ${LOG}
+#    exit 1
+#fi
 
 date >> ${LOG}
 exit 0
