@@ -1,3 +1,9 @@
+TAG: gxdload-4-4-2-1
+DATE: 10//11/2011
+STAFF: lec
+CHANGES:
+1) tr10872/Tamplin/J:143778
+
 TAG: gxdload-4-4-1-12
 TAG: gxdload-4-4-1-11
 TAG: gxdload-4-4-1-10
@@ -5,8 +11,8 @@ TAG: gxdload-4-4-1-9
 DATE: 10/03/2011, 10/05/2011, 10/06/2011
 STAFF: lec
 CHANGES:
-1) tr10680
-2) tr10840
+1) tr10680/J:168654
+2) tr10840/Surani/J:174767
 
 TAG: gxdload-4-4-1-8
 TAG: gxdload-4-4-1-7
@@ -37,7 +43,6 @@ CHANGES:
 1) Added tr10449.config with new settings for the assay load.
 2) Added tr10449assayload.sh to get the assays loaded.
 
->>>>>>> 1.16
 TAG: gxdload-4-4-1-1
 DATE: 12/21/2010
 STAFF: dbm
