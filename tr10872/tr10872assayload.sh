@@ -21,29 +21,37 @@ touch ${LOG}
 #
 echo "\n`date`" >> ${LOG}
 echo "Create the input files for the load" >> ${LOG}
-#${ASSAYLOAD}/tr10872insitu.py >> ${LOG}
 ${ASSAYLOAD}/tr10872insitu.py
+#${ASSAYLOAD}/tr10872insitu.py >> ${LOG}
 if [ $? -ne 0 ]
 then
     echo 'tr10872insitu.py failed' >> ${LOG}
     exit 1
 fi
 
-exit 0
-
 #
 # Load the assays and results.
 #
 echo "\n`date`" >> ${LOG}
 echo "Load the assays and results" >> ${LOG}
-${ASSAYLOAD}/gelload.py >> ${LOG}
+${ASSAYLOAD}/insituload.py >> ${LOG}
 if [ $? -ne 0 ]
 then
-   echo 'gelload.py failed' >> ${LOG}
+   echo 'insituload.py failed' >> ${LOG}
    exit 1
 fi
 
-exit 0
+#
+# Associate images with assay results.
+#
+echo "\n`date`" >> ${LOG}
+echo "Associate images with assay results" >> ${LOG}
+${GXDIMAGELOAD}/assocResultImage.py >> ${LOG}
+if [ $? -ne 0 ]
+then
+    echo 'assocResultImage.py failed' >> ${LOG}
+    exit 1
+fi
 
 #
 # Create the literature index for the new assays.
