@@ -21,8 +21,7 @@ touch ${LOG}
 #
 echo "\n`date`" >> ${LOG}
 echo "Create the input files for the load" >> ${LOG}
-${ASSAYLOAD}/tr10872insitu.py
-#${ASSAYLOAD}/tr10872insitu.py >> ${LOG}
+${ASSAYLOAD}/tr10872insitu.py >> ${LOG}
 if [ $? -ne 0 ]
 then
     echo 'tr10872insitu.py failed' >> ${LOG}
