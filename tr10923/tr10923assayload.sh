@@ -19,26 +19,40 @@ touch ${LOG}
 #
 # Create the probe file
 #
-cd ${PROJECTDIR}
-echo "\n`date`" >> ${LOG}
-echo "Load the probe file" >> ${LOG}
-${PROBELOAD}/primerload.csh primer.config >> ${LOG}
-if [ $? -ne 0 ]
-then
-    echo 'probe load failed' >> ${LOG}
-    exit 1
-fi
+#cd ${PROJECTDIR}
+#echo "\n`date`" >> ${LOG}
+#echo "Load the probe file" >> ${LOG}
+#${PROBELOAD}/primerload.csh primer.config >> ${LOG}
+#if [ $? -ne 0 ]
+#then
+#    echo 'probe load failed' >> ${LOG}
+#    exit 1
+#fi
 
 #
 # Create the references file
 #
+#cd ${PROJECTDIR}
+#echo "\n`date`" >> ${LOG}
+#echo "Load the references file" >> ${LOG}
+#${PROBELOAD}/probereference.csh reference.config >> ${LOG}
+#if [ $? -ne 0 ]
+#then
+#    echo 'probereference load failed' >> ${LOG}
+#    exit 1
+#fi
+#
+
+#
+# Create the probe file
+#
 cd ${PROJECTDIR}
 echo "\n`date`" >> ${LOG}
-echo "Load the references file" >> ${LOG}
-${PROBELOAD}/probereference.csh reference.config >> ${LOG}
+echo "Load the probe file" >> ${LOG}
+${PROBELOAD}/probeload.py >> ${LOG}
 if [ $? -ne 0 ]
 then
-    echo 'probereference load failed' >> ${LOG}
+    echo 'probeload load failed' >> ${LOG}
     exit 1
 fi
 
