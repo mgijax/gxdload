@@ -2,7 +2,7 @@
 
 cd `dirname $0`
 
-. ./tr8270.config
+. ./tr10976.config
 
 if [ $# -eq 0 ]
 then

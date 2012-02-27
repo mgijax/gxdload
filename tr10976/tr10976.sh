@@ -8,93 +8,32 @@
 
 cd `dirname $0`
 
-. ./tr8270.config
+. ./tr10976.config
 
 LOG=${PROJECTDIR}/$0.log
 rm -rf ${LOG}
 touch ${LOG}
  
 #
-# Temporary code needed when running repeated tests.
-#
-cat - <<EOSQL | doisql.csh ${MGD_DBSERVER} ${MGD_DBNAME} $0 >> ${LOG}
- 
-delete from PRB_Source
-where _SegmentType_key = 63468 and
-      _Vector_key = 316370 and
-      _Organism_key = 1 and
-      _Strain_key = -1 and
-      _Tissue_key = -1 and
-      _Gender_key = 315167 and
-      _CellLine_key = 316336 and
-      age = "Not Specified" and
-      isCuratorEdited = 0
-go
-
-delete from ACC_LogicalDB where name = "GenePaint"
-go
-
-quit
-EOSQL
-
-#
 # Create a new source record with the appropriate attributes to use with
 # each new primer/probe record.
 #
-echo "`date`" >> ${LOG}
-echo "Create anonymous source record for probes" >> ${LOG}
-cat - <<EOSQL | doisql.csh ${MGD_DBSERVER} ${MGD_DBNAME} $0 >> ${LOG}
-
-declare @sourceKey integer
-
-select @sourceKey = max(_Source_key) + 1 from PRB_Source
-
-insert into PRB_Source
-values (@sourceKey, 63468, 316370, 1, -1, -1, 315167, 316336, null,
-        null, null, "Not Specified", -1.0, -1.0, 0,
-        1080, 1080, getdate(), getdate())
-go
-
-quit
-EOSQL
-
+#echo "`date`" >> ${LOG}
+#echo "Create anonymous source record for probes" >> ${LOG}
+#cat - <<EOSQL | doisql.csh ${MGD_DBSERVER} ${MGD_DBNAME} $0 >> ${LOG}
 #
-# Create new logical DB and actual DB records for GenePaint.
+#declare @sourceKey integer
 #
-echo "`date`" >> ${LOG}
-echo "Create new logical DB and actual DB records for GenePaint" >> ${LOG}
-cat - <<EOSQL | doisql.csh ${MGD_DBSERVER} ${MGD_DBNAME} $0 >> ${LOG}
-
-declare @logicalDBKey integer
-declare @actualDBKey integer
-
-select @logicalDBKey = max(_LogicalDB_key) + 1 from ACC_LogicalDB
-select @actualDBKey = max(_ActualDB_key) + 1 from ACC_ActualDB
-
-insert into ACC_LogicalDB
-values (@logicalDBKey, "GenePaint", "GenePaint", 1,
-        1001, 1001, getdate(), getdate())
-
-insert into ACC_ActualDB
-values (@actualDBKey, @logicalDBKey, "GenePaint", 1,
-        "http://www.genepaint.org/cgi-bin/mgrqcgi94?APPNAME=genepaint&PRGNAME=analysis_viewer&ARGUMENTS=-A,-AMH,-A@@@@",
-        0,null,1001, 1001, getdate(), getdate())
-go
-
-quit
-EOSQL
-
+#select @sourceKey = max(_Source_key) + 1 from PRB_Source
 #
-# Create the input file for the primer load.
+#insert into PRB_Source
+#values (@sourceKey, 63468, 316370, 1, -1, -1, 315167, 316336, null,
+#        null, null, "Not Specified", -1.0, -1.0, 0,
+#        1080, 1080, getdate(), getdate())
+#go
 #
-echo "\n`date`" >> ${LOG}
-echo "Create the input file for the primer load" >> ${LOG}
-${GXDLOAD}/tr8270/tr8270primerPrep.py >> ${LOG}
-if [ $? -ne 0 ]
-then
-    echo 'tr8270primerPrep.py failed' >> ${LOG}
-    exit 1
-fi
+#quit
+#EOSQL
 
 #
 # Load the primers.
@@ -109,28 +48,19 @@ then
 fi
 
 #
-# Create the input file for the probe load.
+# Load the references.
 #
 echo "\n`date`" >> ${LOG}
-echo "Create the input file for the probe load" >> ${LOG}
-${GXDLOAD}/tr8270/tr8270probePrep.py >> ${LOG}
+echo "Load the references" >> ${LOG}
+echo ${PROBELOAD}/probereference.csh ${PROJECTDIR}/referenceload/reference.config >> ${LOG}
+${PROBELOAD}/probereference.csh ${PROJECTDIR}/referenceload/reference.config >> ${LOG}
 if [ $? -ne 0 ]
 then
-    echo 'tr8270probePrep.py failed' >> ${LOG}
+    echo 'probereference.py failed' >> ${LOG}
     exit 1
 fi
 
-#
-# Load the probes.
-#
-echo "\n`date`" >> ${LOG}
-echo "Load the probes" >> ${LOG}
-${PROBELOAD}/probeload.py >> ${LOG}
-if [ $? -ne 0 ]
-then
-    echo 'probeload.py failed' >> ${LOG}
-    exit 1
-fi
+exit 0
 
 #
 # Generate a list of best image files for Pixel DB.

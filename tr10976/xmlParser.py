@@ -4,6 +4,7 @@ import sys
 import os
 import string
 import re
+import db
 
 from xml.dom import minidom
 
@@ -57,7 +58,7 @@ def buildGeneLookup ():
         tokens = re.split('\t', line[:-1])
         geneLookup[tokens[0]] = tokens[1]
         line = fpGene.readline()
-
+    
     fpGene.close()
 
     return
@@ -281,6 +282,7 @@ def processFile (inputFile):
     if geneLookup.has_key(geneSymbol):
         geneMGIID = geneLookup[geneSymbol]
     else:
+        print "cannot find: =", geneSymbol, "="
         return 0
 
     #
@@ -456,6 +458,8 @@ buildGeneLookup()
 buildStructureLookup()
 
 openFiles()
+
+#processFile(xmlDir + '/' + 'DA00000076.xml')
 
 for filename in sys.argv[1:]:
     print filename
