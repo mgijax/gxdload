@@ -1,7 +1,7 @@
 #!/bin/sh
 
 #
-# TR 8270
+# TR 10976
 #
 # Wrapper script for loading GenePaint dataset into GXD for TR 8270
 #
@@ -36,14 +36,27 @@ touch ${LOG}
 #EOSQL
 
 #
-# Load the primers.
+# Load the probe.
 #
 echo "\n`date`" >> ${LOG}
-echo "Load the primers" >> ${LOG}
-${PROBELOAD}/primerload.py >> ${LOG}
+echo "Load the probes" >> ${LOG}
+${PROBELOAD}/probeload.py >> ${LOG}
 if [ $? -ne 0 ]
 then
-    echo 'primerload.py failed' >> ${LOG}
+    echo 'probeload.py failed' >> ${LOG}
+    exit 1
+fi
+
+#
+# Load raw sequence notes.
+#
+cd ${PROBELOADDATADIR}
+echo "\n`date`" >> ${LOG}
+echo "Load raw sequence notes" >> ${LOG}
+${NOTELOAD}/mginoteload.py -S${MGD_DBSERVER} -D${MGD_DBNAME} -U${MGI_DBUSER} -P${MGI_DBPASSWORDFILE} -I${RAWNOTE_FILE} -M${NOTELOADMODE} -O${RAWNOTE_OBJECTTYPE} -T"${RAWNOTE_NOTETYPE}" >> ${LOG}
+if [ $? -ne 0 ]
+then
+    echo 'mginoteload.py failed' >> ${LOG}
     exit 1
 fi
 
@@ -52,8 +65,8 @@ fi
 #
 echo "\n`date`" >> ${LOG}
 echo "Load the references" >> ${LOG}
-echo ${PROBELOAD}/probereference.csh ${PROJECTDIR}/referenceload/reference.config >> ${LOG}
-${PROBELOAD}/probereference.csh ${PROJECTDIR}/referenceload/reference.config >> ${LOG}
+echo ${PROBELOAD}/probereference.csh ${PROJECTDIR}/referenceload2/reference.config >> ${LOG}
+${PROBELOAD}/probereference.csh ${PROJECTDIR}/referenceload2/reference.config >> ${LOG}
 if [ $? -ne 0 ]
 then
     echo 'probereference.py failed' >> ${LOG}
