@@ -38,38 +38,63 @@ touch ${LOG}
 #
 # Load the probe.
 #
-echo "\n`date`" >> ${LOG}
-echo "Load the probes" >> ${LOG}
-${PROBELOAD}/probeload.py >> ${LOG}
-if [ $? -ne 0 ]
-then
-    echo 'probeload.py failed' >> ${LOG}
-    exit 1
-fi
+#echo "\n`date`" >> ${LOG}
+#echo "Load the probes" >> ${LOG}
+#${PROBELOAD}/probeload.py >> ${LOG}
+#if [ $? -ne 0 ]
+#then
+#    echo 'probeload.py failed' >> ${LOG}
+#    exit 1
+#fi
 
 #
 # Load raw sequence notes.
 #
-cd ${PROBELOADDATADIR}
-echo "\n`date`" >> ${LOG}
-echo "Load raw sequence notes" >> ${LOG}
-${NOTELOAD}/mginoteload.py -S${MGD_DBSERVER} -D${MGD_DBNAME} -U${MGI_DBUSER} -P${MGI_DBPASSWORDFILE} -I${RAWNOTE_FILE} -M${NOTELOADMODE} -O${RAWNOTE_OBJECTTYPE} -T"${RAWNOTE_NOTETYPE}" >> ${LOG}
-if [ $? -ne 0 ]
-then
-    echo 'mginoteload.py failed' >> ${LOG}
-    exit 1
-fi
+#cd ${PROBELOADDATADIR}
+#echo "\n`date`" >> ${LOG}
+#echo "Load raw sequence notes" >> ${LOG}
+#${NOTELOAD}/mginoteload.py -S${MGD_DBSERVER} -D${MGD_DBNAME} -U${MGI_DBUSER} -P${MGI_DBPASSWORDFILE} -I${RAWNOTE_FILE} -M${NOTELOADMODE} -O${RAWNOTE_OBJECTTYPE} -T"${RAWNOTE_NOTETYPE}" >> ${LOG}
+#if [ $? -ne 0 ]
+#then
+#    echo 'mginoteload.py failed' >> ${LOG}
+#    exit 1
+#fi
 
 #
 # Load the references.
 #
+#echo "\n`date`" >> ${LOG}
+#echo "Load the references" >> ${LOG}
+#echo ${PROBELOAD}/probereference.csh ${PROJECTDIR}/referenceload2/reference.config >> ${LOG}
+#${PROBELOAD}/probereference.csh ${PROJECTDIR}/referenceload2/reference.config >> ${LOG}
+#if [ $? -ne 0 ]
+#then
+#    echo 'probereference.py failed' >> ${LOG}
+#    exit 1
+#fi
+
+#
+# update probe notes
+#
 echo "\n`date`" >> ${LOG}
-echo "Load the references" >> ${LOG}
-echo ${PROBELOAD}/probereference.csh ${PROJECTDIR}/referenceload2/reference.config >> ${LOG}
-${PROBELOAD}/probereference.csh ${PROJECTDIR}/referenceload2/reference.config >> ${LOG}
+echo "Update the probe notes" >> ${LOG}
+${PROBELOAD}/probenotes.py >> ${LOG}
 if [ $? -ne 0 ]
 then
-    echo 'probereference.py failed' >> ${LOG}
+    echo 'probenotes.py failed' >> ${LOG}
+    exit 1
+fi
+
+#
+# remove probe aliases
+#
+cd ${PROJECTDIR}/removealias
+echo "\n`date`" >> ${LOG}
+echo "Remove Probe Aliases" >> ${LOG}
+./tr10976.py >> ${LOG}
+if [ $? -ne 0 ]
+then
+    echo 'remove probe alias failed' >> ${LOG}
     exit 1
 fi
 
