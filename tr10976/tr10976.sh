@@ -76,53 +76,41 @@ touch ${LOG}
 #
 # update probe notes
 #
-echo "\n`date`" >> ${LOG}
-echo "Update the probe notes" >> ${LOG}
-${PROBELOAD}/probenotes.py >> ${LOG}
-if [ $? -ne 0 ]
-then
-    echo 'probenotes.py failed' >> ${LOG}
-    exit 1
-fi
+#echo "\n`date`" >> ${LOG}
+#echo "Update the probe notes" >> ${LOG}
+#${PROBELOAD}/probenotes.py >> ${LOG}
+#if [ $? -ne 0 ]
+#then
+#    echo 'probenotes.py failed' >> ${LOG}
+#    exit 1
+#fi
 
 #
 # remove probe aliases
 #
-cd ${PROJECTDIR}/removealias
-echo "\n`date`" >> ${LOG}
-echo "Remove Probe Aliases" >> ${LOG}
-./tr10976.py >> ${LOG}
-if [ $? -ne 0 ]
-then
-    echo 'remove probe alias failed' >> ${LOG}
-    exit 1
-fi
-
-exit 0
-
+#cd ${PROJECTDIR}/removealias
+#echo "\n`date`" >> ${LOG}
+#echo "Remove Probe Aliases" >> ${LOG}
+#./tr10976.py >> ${LOG}
+#if [ $? -ne 0 ]
+#then
+#    echo 'remove probe alias failed' >> ${LOG}
+#    exit 1
+#fi
 #
-# Generate a list of best image files for Pixel DB.
-#
-echo "\n`date`" >> ${LOG}
-echo "Create a list of best image files for Pixel DB" >> ${LOG}
-${GXDIMAGELOAD}/tr8270getBestImageFiles.py >> ${LOG}
-if [ $? -ne 0 ]
-then
-    echo 'tr8270getBestImageFiles.py failed' >> ${LOG}
-    exit 1
-fi
 
 #
 # Copy fullsize and thumbnail images to Pixel DB.
 #
 echo "\n`date`" >> ${LOG}
 echo "Copy fullsize and thumbnail images to Pixel DB" >> ${LOG}
-${GXDIMAGELOAD}/tr8270pixload.sh >> ${LOG}
+${GXDIMAGELOAD}/tr10976pixload.sh >> ${LOG}
 if [ $? -ne 0 ]
 then
-    echo 'tr8270pixload.sh failed' >> ${LOG}
+    echo 'tr10976pixload.sh failed' >> ${LOG}
     exit 1
 fi
+exit 0
 
 #
 # Create fullsize image input files for the GXD image load.
