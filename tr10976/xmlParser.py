@@ -151,7 +151,8 @@ def openFiles ():
     # 23. Figure Label
     # 24. Note 
     #
-    # etc.
+    # 104 structures
+    # 6 * 104 = 624
     #
 
     try:

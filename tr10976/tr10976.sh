@@ -15,6 +15,38 @@ rm -rf ${LOG}
 touch ${LOG}
  
 #
+# TR8270: delete current assay and image stubs for J:122989 that were added
+#
+#echo "`date`" >> ${LOG}
+#echo "Deleting TR8270 data..." >> ${LOG}
+#${MGD_DBSCHEMADIR}/trigger/GXD_Assay_drop.object | >> ${LOG}
+#${MGD_DBSCHEMADIR}/trigger/GXD_Assay_create.object | >> ${LOG}
+#cat - <<EOSQL | doisql.csh ${MGD_DBSERVER} ${MGD_DBNAME} $0 >> ${LOG}
+#
+#use ${MGD_DBNAME}
+#go
+#
+#delete from GXD_Assay where _Assay_key between 28519 and 29267
+#go
+#
+#delete from IMG_ImagePane where _Image_key between 50483 and 61067
+#go
+#
+#delete from IMG_ImagePane where _Image_key between 61068 and 71652
+#go
+#
+#delete from IMG_Image where _Image_key between 50483 and 61067
+#go
+#
+#delete from IMG_Image where _Image_key between 61068 and 71652
+#go
+#
+#quit
+#EOSQL
+#echo "`date`" >> ${LOG}
+#exit 0
+
+#
 # Create a new source record with the appropriate attributes to use with
 # each new primer/probe record.
 #
@@ -102,27 +134,29 @@ touch ${LOG}
 #
 # Copy fullsize and thumbnail images to Pixel DB.
 #
-echo "\n`date`" >> ${LOG}
-echo "Copy fullsize and thumbnail images to Pixel DB" >> ${LOG}
-${GXDIMAGELOAD}/tr10976pixload.sh >> ${LOG}
-if [ $? -ne 0 ]
-then
-    echo 'tr10976pixload.sh failed' >> ${LOG}
-    exit 1
-fi
-exit 0
+#echo "\n`date`" >> ${LOG}
+#echo "Copy fullsize and thumbnail images to Pixel DB" >> ${LOG}
+#${GXDIMAGELOAD}/tr10976pixload.sh >> ${LOG}
+#if [ $? -ne 0 ]
+#then
+#    echo 'tr10976pixload.sh failed' >> ${LOG}
+#    exit 1
+#fi
+#exit 0
 
 #
 # Create fullsize image input files for the GXD image load.
 #
-echo "\n`date`" >> ${LOG}
-echo "Create fullsize image input files for the GXD image load" >> ${LOG}
-${GXDIMAGELOAD}/tr8270prepFullsize.py >> ${LOG}
-if [ $? -ne 0 ]
-then
-    echo 'tr8270prepFullsize.py failed' >> ${LOG}
-    exit 1
-fi
+#echo "\n`date`" >> ${LOG}
+#echo "Create fullsize image input files for the GXD image load" >> ${LOG}
+#${GXDIMAGELOAD}/tr10976preFullsize.py >> ${LOG}
+#if [ $? -ne 0 ]
+#then
+#    echo 'tr10976preFullsize.py failed' >> ${LOG}
+#    exit 1
+#fi
+#echo "\n`date`" >> ${LOG}
+#exit 0
 
 #
 # Create the fullsize image stubs.
@@ -157,6 +191,7 @@ then
     echo 'mginoteload.py failed' >> ${LOG}
     exit 1
 fi
+#exit 0
 
 #
 # Load caption notes.
@@ -169,6 +204,7 @@ then
     echo 'mginoteload.py failed' >> ${LOG}
     exit 1
 fi
+#exit 0
 
 cd `dirname $0`
 
@@ -177,12 +213,13 @@ cd `dirname $0`
 #
 echo "\n`date`" >> ${LOG}
 echo "Create thumbnail image input files for the GXD image load" >> ${LOG}
-${GXDIMAGELOAD}/tr8270prepThumbnail.py >> ${LOG}
+${GXDIMAGELOAD}/tr10976preThumbnail.py >> ${LOG}
 if [ $? -ne 0 ]
 then
-    echo 'tr8270prepThumbnail.py failed' >> ${LOG}
+    echo 'tr10976prepThumbnail.py failed' >> ${LOG}
     exit 1
 fi
+#exit 0
 
 #
 # Create the thumbnail image stubs.
@@ -196,32 +233,20 @@ echo "Create the thumbnail image stubs" >> ${LOG}
 ${GXDIMAGELOAD}/gxdimageload.py >> ${LOG}
 if [ $? -ne 0 ]
 then
-    echo 'gxdimageload.py failed' >> ${LOG}
+   echo 'gxdimageload.py failed' >> ${LOG}
     exit 1
 fi
-
-#
-# Create GenePaint accession IDs that are associated with the fullsize images
-# for building links to GenePaint from the WI.
-#
-echo "\n`date`" >> ${LOG}
-echo "Create GenePaint accession IDs associated with the fullsize images" >> ${LOG}
-${GXDIMAGELOAD}/tr8270imageAssoc.py >> ${LOG}
-if [ $? -ne 0 ]
-then
-    echo 'tr8270imageAssoc.py failed' >> ${LOG}
-    exit 1
-fi
+exit 0
 
 #
 # Create the input files for the in situ load.
 #
 echo "\n`date`" >> ${LOG}
 echo "Create the input files for the in situ load" >> ${LOG}
-${ASSAYLOAD}/tr8270.py >> ${LOG}
+${ASSAYLOAD}/tr10976.py >> ${LOG}
 if [ $? -ne 0 ]
 then
-    echo 'tr8270.py failed' >> ${LOG}
+    echo 'tr10976.py failed' >> ${LOG}
     exit 1
 fi
 
