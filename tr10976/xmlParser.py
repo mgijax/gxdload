@@ -429,7 +429,8 @@ def processFile (inputFile):
         else:
             dict['pattern'] = ''
         if len(structure.getElementsByTagName('bestImage')) != 0:
-            dict['bestImage'] = structure.getElementsByTagName('bestImage')[0].firstChild.nodeValue
+            dict['bestImage'] = \
+		structure.getElementsByTagName('bestImage')[0].firstChild.nodeValue.upper()
         else:
             dict['bestImage'] = ''
 

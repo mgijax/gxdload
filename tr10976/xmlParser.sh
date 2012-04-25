@@ -11,6 +11,6 @@ else
     FILELIST=$*
 fi
 
-#FILELIST=MH00002867.xml
+#FILELIST=MY00000075.xml
 
 xmlParser.py ${FILELIST}

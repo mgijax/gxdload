@@ -14,36 +14,29 @@ LOG=${PROJECTDIR}/$0.log
 rm -rf ${LOG}
 touch ${LOG}
  
+#load_db.csh DEV1_MGI mgd_test /lindon/sybase/mgd.backup
+
 #
 # TR8270: delete current assay and image stubs for J:122989 that were added
 #
-#echo "`date`" >> ${LOG}
-#echo "Deleting TR8270 data..." >> ${LOG}
-#${MGD_DBSCHEMADIR}/trigger/GXD_Assay_drop.object | >> ${LOG}
-#${MGD_DBSCHEMADIR}/trigger/GXD_Assay_create.object | >> ${LOG}
-#cat - <<EOSQL | doisql.csh ${MGD_DBSERVER} ${MGD_DBNAME} $0 >> ${LOG}
-#
-#use ${MGD_DBNAME}
-#go
-#
-#delete from GXD_Assay where _Assay_key between 28519 and 29267
-#go
-#
-#delete from IMG_ImagePane where _Image_key between 50483 and 61067
-#go
-#
-#delete from IMG_ImagePane where _Image_key between 61068 and 71652
-#go
-#
-#delete from IMG_Image where _Image_key between 50483 and 61067
-#go
-#
-#delete from IMG_Image where _Image_key between 61068 and 71652
-#go
-#
-#quit
-#EOSQL
-#echo "`date`" >> ${LOG}
+echo "`date`" >> ${LOG}
+echo "Deleting TR8270 data..." >> ${LOG}
+${MGD_DBSCHEMADIR}/trigger/GXD_Assay_drop.object | >> ${LOG}
+${MGD_DBSCHEMADIR}/trigger/GXD_Assay_create.object | >> ${LOG}
+cat - <<EOSQL | doisql.csh ${MGD_DBSERVER} ${MGD_DBNAME} $0 >> ${LOG}
+
+use ${MGD_DBNAME}
+go
+
+delete from GXD_Assay where _Refs_key = 124081
+go
+
+delete from IMG_Image where _Refs_key = 124081
+go
+
+quit
+EOSQL
+echo "`date`" >> ${LOG}
 #exit 0
 
 #
@@ -134,28 +127,28 @@ touch ${LOG}
 #
 # Copy fullsize and thumbnail images to Pixel DB.
 #
-#echo "\n`date`" >> ${LOG}
-#echo "Copy fullsize and thumbnail images to Pixel DB" >> ${LOG}
-#${GXDIMAGELOAD}/tr10976pixload.sh >> ${LOG}
-#if [ $? -ne 0 ]
-#then
-#    echo 'tr10976pixload.sh failed' >> ${LOG}
-#    exit 1
-#fi
+echo "\n`date`" >> ${LOG}
+echo "Copy fullsize and thumbnail images to Pixel DB" >> ${LOG}
+${GXDIMAGELOAD}/tr10976pixload.sh >> ${LOG}
+if [ $? -ne 0 ]
+then
+    echo 'tr10976pixload.sh failed' >> ${LOG}
+    exit 1
+fi
 #exit 0
 
 #
 # Create fullsize image input files for the GXD image load.
 #
-#echo "\n`date`" >> ${LOG}
-#echo "Create fullsize image input files for the GXD image load" >> ${LOG}
-#${GXDIMAGELOAD}/tr10976preFullsize.py >> ${LOG}
-#if [ $? -ne 0 ]
-#then
-#    echo 'tr10976preFullsize.py failed' >> ${LOG}
-#    exit 1
-#fi
-#echo "\n`date`" >> ${LOG}
+echo "\n`date`" >> ${LOG}
+echo "Create fullsize image input files for the GXD image load" >> ${LOG}
+${GXDIMAGELOAD}/tr10976preFullsize.py >> ${LOG}
+if [ $? -ne 0 ]
+then
+    echo 'tr10976preFullsize.py failed' >> ${LOG}
+    exit 1
+fi
+echo "\n`date`" >> ${LOG}
 #exit 0
 
 #
@@ -173,6 +166,7 @@ then
     echo 'gxdimageload.py failed' >> ${LOG}
     exit 1
 fi
+#exit 0
 
 #
 # The note load creates output files in the current directory, so go to
