@@ -19,24 +19,24 @@ touch ${LOG}
 #
 # TR8270: delete current assay and image stubs for J:122989 that were added
 #
-echo "`date`" >> ${LOG}
-echo "Deleting TR8270 data..." >> ${LOG}
-${MGD_DBSCHEMADIR}/trigger/GXD_Assay_drop.object | >> ${LOG}
-${MGD_DBSCHEMADIR}/trigger/GXD_Assay_create.object | >> ${LOG}
-cat - <<EOSQL | doisql.csh ${MGD_DBSERVER} ${MGD_DBNAME} $0 >> ${LOG}
-
-use ${MGD_DBNAME}
-go
-
-delete from GXD_Assay where _Refs_key = 124081
-go
-
-delete from IMG_Image where _Refs_key = 124081
-go
-
-quit
-EOSQL
-echo "`date`" >> ${LOG}
+#echo "`date`" >> ${LOG}
+#echo "Deleting TR8270 data..." >> ${LOG}
+#${MGD_DBSCHEMADIR}/trigger/GXD_Assay_drop.object | >> ${LOG}
+#${MGD_DBSCHEMADIR}/trigger/GXD_Assay_create.object | >> ${LOG}
+#cat - <<EOSQL | doisql.csh ${MGD_DBSERVER} ${MGD_DBNAME} $0 >> ${LOG}
+#
+#use ${MGD_DBNAME}
+#go
+#
+#delete from GXD_Assay where _Refs_key = 124081
+#go
+#
+#delete from IMG_Image where _Refs_key = 124081
+#go
+#
+#quit
+#EOSQL
+#echo "`date`" >> ${LOG}
 #exit 0
 
 #
@@ -127,122 +127,123 @@ echo "`date`" >> ${LOG}
 #
 # Copy fullsize and thumbnail images to Pixel DB.
 #
-echo "\n`date`" >> ${LOG}
-echo "Copy fullsize and thumbnail images to Pixel DB" >> ${LOG}
-${GXDIMAGELOAD}/tr10976pixload.sh >> ${LOG}
-if [ $? -ne 0 ]
-then
-    echo 'tr10976pixload.sh failed' >> ${LOG}
-    exit 1
-fi
+#echo "\n`date`" >> ${LOG}
+#echo "Copy fullsize and thumbnail images to Pixel DB" >> ${LOG}
+#${GXDIMAGELOAD}/tr10976pixload.sh >> ${LOG}
+#if [ $? -ne 0 ]
+#then
+#    echo 'tr10976pixload.sh failed' >> ${LOG}
+#    exit 1
+#fi
 #exit 0
 
 #
 # Create fullsize image input files for the GXD image load.
 #
-echo "\n`date`" >> ${LOG}
-echo "Create fullsize image input files for the GXD image load" >> ${LOG}
-${GXDIMAGELOAD}/tr10976preFullsize.py >> ${LOG}
-if [ $? -ne 0 ]
-then
-    echo 'tr10976preFullsize.py failed' >> ${LOG}
-    exit 1
-fi
+#echo "\n`date`" >> ${LOG}
+#echo "Create fullsize image input files for the GXD image load" >> ${LOG}
+#${GXDIMAGELOAD}/tr10976preFullsize.py >> ${LOG}
+#if [ $? -ne 0 ]
+#then
+#    echo 'tr10976preFullsize.py failed' >> ${LOG}
+#    exit 1
+#fi
 echo "\n`date`" >> ${LOG}
 #exit 0
 
 #
 # Create the fullsize image stubs.
 #
-IMAGEFILE=${IMAGE_FULLSIZE}; export IMAGEFILE
-IMAGEPANEFILE=${IMAGEPANE_FULLSIZE}; export IMAGEPANEFILE
-OUTFILE_QUALIFIER=${QUALIFIER_FULLSIZE}; export OUTFILE_QUALIFIER
-
-echo "\n`date`" >> ${LOG}
-echo "Create the fullsize image stubs" >> ${LOG}
-${GXDIMAGELOAD}/gxdimageload.py >> ${LOG}
-if [ $? -ne 0 ]
-then
-    echo 'gxdimageload.py failed' >> ${LOG}
-    exit 1
-fi
+#IMAGEFILE=${IMAGE_FULLSIZE}; export IMAGEFILE
+#IMAGEPANEFILE=${IMAGEPANE_FULLSIZE}; export IMAGEPANEFILE
+#OUTFILE_QUALIFIER=${QUALIFIER_FULLSIZE}; export OUTFILE_QUALIFIER
+#
+#echo "\n`date`" >> ${LOG}
+#echo "Create the fullsize image stubs" >> ${LOG}
+#${GXDIMAGELOAD}/gxdimageload.py >> ${LOG}
+#if [ $? -ne 0 ]
+#then
+#    echo 'gxdimageload.py failed' >> ${LOG}
+#    exit 1
+#fi
 #exit 0
 
 #
 # The note load creates output files in the current directory, so go to
 # the directory where the files should be located.
 #
-cd ${IMAGELOADDATADIR}
+#cd ${IMAGELOADDATADIR}
 
 #
 # Load copyright notes.
 #
-echo "\n`date`" >> ${LOG}
-echo "Load copyright notes" >> ${LOG}
-${NOTELOAD}/mginoteload.py -S${MGD_DBSERVER} -D${MGD_DBNAME} -U${MGI_DBUSER} -P${MGI_DBPASSWORDFILE} -I${COPYRIGHTFILE} -M${NOTELOADMODE} -O${IMAGE_OBJECTTYPE} -T${COPYRIGHT_NOTETYPE} >> ${LOG}
-if [ $? -ne 0 ]
-then
-    echo 'mginoteload.py failed' >> ${LOG}
-    exit 1
-fi
+#echo "\n`date`" >> ${LOG}
+#echo "Load copyright notes" >> ${LOG}
+#${NOTELOAD}/mginoteload.py -S${MGD_DBSERVER} -D${MGD_DBNAME} -U${MGI_DBUSER} -P${MGI_DBPASSWORDFILE} -I${COPYRIGHTFILE} -M${NOTELOADMODE} -O${IMAGE_OBJECTTYPE} -T${COPYRIGHT_NOTETYPE} >> ${LOG}
+#if [ $? -ne 0 ]
+#then
+#    echo 'mginoteload.py failed' >> ${LOG}
+#    exit 1
+#fi
 #exit 0
 
 #
 # Load caption notes.
 #
-echo "\n`date`" >> ${LOG}
-echo "Load caption notes" >> ${LOG}
-${NOTELOAD}/mginoteload.py -S${MGD_DBSERVER} -D${MGD_DBNAME} -U${MGI_DBUSER} -P${MGI_DBPASSWORDFILE} -I${CAPTIONFILE} -M${NOTELOADMODE} -O${IMAGE_OBJECTTYPE} -T${CAPTION_NOTETYPE} >> ${LOG}
-if [ $? -ne 0 ]
-then
-    echo 'mginoteload.py failed' >> ${LOG}
-    exit 1
-fi
+#echo "\n`date`" >> ${LOG}
+#echo "Load caption notes" >> ${LOG}
+#${NOTELOAD}/mginoteload.py -S${MGD_DBSERVER} -D${MGD_DBNAME} -U${MGI_DBUSER} -P${MGI_DBPASSWORDFILE} -I${CAPTIONFILE} -M${NOTELOADMODE} -O${IMAGE_OBJECTTYPE} -T${CAPTION_NOTETYPE} >> ${LOG}
+#if [ $? -ne 0 ]
+#then
+#    echo 'mginoteload.py failed' >> ${LOG}
+#    exit 1
+#fi
 #exit 0
 
-cd `dirname $0`
+#cd `dirname $0`
 
 #
 # Create thumbnail image input files for the GXD image load.
 #
-echo "\n`date`" >> ${LOG}
-echo "Create thumbnail image input files for the GXD image load" >> ${LOG}
-${GXDIMAGELOAD}/tr10976preThumbnail.py >> ${LOG}
-if [ $? -ne 0 ]
-then
-    echo 'tr10976prepThumbnail.py failed' >> ${LOG}
-    exit 1
-fi
+#echo "\n`date`" >> ${LOG}
+#echo "Create thumbnail image input files for the GXD image load" >> ${LOG}
+#${GXDIMAGELOAD}/tr10976preThumbnail.py >> ${LOG}
+#if [ $? -ne 0 ]
+#then
+#    echo 'tr10976prepThumbnail.py failed' >> ${LOG}
+#    exit 1
+#fi
 #exit 0
 
 #
 # Create the thumbnail image stubs.
 #
-IMAGEFILE=${IMAGE_THUMBNAIL}; export IMAGEFILE
-IMAGEPANEFILE=${IMAGEPANE_THUMBNAIL}; export IMAGEPANEFILE
-OUTFILE_QUALIFIER=${QUALIFIER_THUMBNAIL}; export OUTFILE_QUALIFIER
-
-echo "\n`date`" >> ${LOG}
-echo "Create the thumbnail image stubs" >> ${LOG}
-${GXDIMAGELOAD}/gxdimageload.py >> ${LOG}
-if [ $? -ne 0 ]
-then
-   echo 'gxdimageload.py failed' >> ${LOG}
-    exit 1
-fi
-exit 0
+#IMAGEFILE=${IMAGE_THUMBNAIL}; export IMAGEFILE
+#IMAGEPANEFILE=${IMAGEPANE_THUMBNAIL}; export IMAGEPANEFILE
+#OUTFILE_QUALIFIER=${QUALIFIER_THUMBNAIL}; export OUTFILE_QUALIFIER
+#
+#echo "\n`date`" >> ${LOG}
+#echo "Create the thumbnail image stubs" >> ${LOG}
+#${GXDIMAGELOAD}/gxdimageload.py >> ${LOG}
+#if [ $? -ne 0 ]
+#then
+#   echo 'gxdimageload.py failed' >> ${LOG}
+#    exit 1
+#fi
+#exit 0
 
 #
 # Create the input files for the in situ load.
 #
-echo "\n`date`" >> ${LOG}
-echo "Create the input files for the in situ load" >> ${LOG}
-${ASSAYLOAD}/tr10976.py >> ${LOG}
-if [ $? -ne 0 ]
-then
-    echo 'tr10976.py failed' >> ${LOG}
-    exit 1
-fi
+#echo "\n`date`" >> ${LOG}
+#echo "Create the input files for the in situ load" >> ${LOG}
+#${ASSAYLOAD}/tr10976insitu.py >> ${LOG}
+#if [ $? -ne 0 ]
+#then
+#    echo 'tr10976insitu.py failed' >> ${LOG}
+#    exit 1
+#fi
+#exit 0
 
 #
 # Load the assays and results.
@@ -255,6 +256,7 @@ then
     echo 'insituload.py failed' >> ${LOG}
     exit 1
 fi
+exit 0
 
 #
 # Associate images with assay results.
