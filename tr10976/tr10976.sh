@@ -248,15 +248,15 @@ echo "\n`date`" >> ${LOG}
 #
 # Load the assays and results.
 #
-echo "\n`date`" >> ${LOG}
-echo "Load the assays and results" >> ${LOG}
-${ASSAYLOAD}/insituload.py >> ${LOG}
-if [ $? -ne 0 ]
-then
-    echo 'insituload.py failed' >> ${LOG}
-    exit 1
-fi
-exit 0
+#echo "\n`date`" >> ${LOG}
+#echo "Load the assays and results" >> ${LOG}
+#${ASSAYLOAD}/insituload.py >> ${LOG}
+#if [ $? -ne 0 ]
+#then
+#    echo 'insituload.py failed' >> ${LOG}
+#    exit 1
+#fi
+#exit 0
 
 #
 # Associate images with assay results.
