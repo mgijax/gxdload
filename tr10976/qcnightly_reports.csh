@@ -17,11 +17,20 @@ touch ${LOG}
 
 echo `date`: Start nightly QC reports | tee -a ${LOG}
 
-cd ${QCMGD}
+foreach qcdir (${QCMGD} ${QCWEEKLY} ${QCMONTHLY})
+
+cd $qcdir
 
 foreach i (GXD*.sql)
     echo `date`: $i | tee -a ${LOG}
-    reportisql.csh $i ${QCOUTPUTDIR}/$i.rpt ${MGD_DBSERVER} ${MGD_DBNAME}
+    if ( $i == "GXD_Triage.sql" ) then
+        mv -f ${QCOUTPUTDIR}/$i.[0-9]*.rpt ${QCGXDARCHIVE}
+        rm -rf ${QCOUTPUTDIR}/$i.current.rpt
+        reportisql.csh $i ${QCOUTPUTDIR}/$i.${DATE}.rpt ${MGD_DBSERVER} ${MGD_DBNAME}
+        ln -s ${QCOUTPUTDIR}/$i.${DATE}.rpt ${QCOUTPUTDIR}/$i.current.rpt
+    else
+        reportisql.csh $i ${QCOUTPUTDIR}/$i.rpt ${MGD_DBSERVER} ${MGD_DBNAME}
+    endif
 end
 
 foreach i (GXD*.py)
@@ -37,6 +46,8 @@ foreach i (GXD*.py)
     else
         $i >>& ${LOG}
     endif
+end
+
 end
 
 echo `date`: End nightly QC reports | tee -a ${LOG}
