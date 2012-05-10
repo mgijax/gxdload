@@ -17,6 +17,12 @@ touch ${LOG}
 #load_db.csh DEV1_MGI mgd_test /lindon/sybase/mgd.backup
 
 #
+# remove WI data cache
+# _Refs_key = 124081
+#
+rm -rf ${MGI_LIVE}/wi/data/assays/124081
+
+#
 # TR8270: delete current assay and image stubs for J:122989 that were added
 #
 echo "`date`" >> ${LOG}
@@ -26,6 +32,9 @@ ${MGD_DBSCHEMADIR}/trigger/GXD_Assay_create.object | >> ${LOG}
 cat - <<EOSQL | doisql.csh ${MGD_DBSERVER} ${MGD_DBNAME} $0 >> ${LOG}
 
 use ${MGD_DBNAME}
+go
+
+delete from GXD_Index where _Refs_key = 124081
 go
 
 delete from GXD_Expression where _Refs_key = 124081
