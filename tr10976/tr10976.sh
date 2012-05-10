@@ -46,24 +46,55 @@ create index idx1 on #todelete(_Assay_key)
 go
 
 delete GXD_Specimen
-from #toDelete d, GXD_Specimen g
+from #todelete d, GXD_Specimen g
 where d._Assay_key = g._Assay_key
 go
 
 delete GXD_AssayNote
-from #toDelete d, GXD_AssayNote g
+from #todelete d, GXD_AssayNote g
 where d._Assay_key = g._Assay_key
 go
 
 delete ACC_Accession
-from #toDelete d, ACC_Accession g
+from #todelete d, ACC_Accession g
 where d._Assay_key = g._Object_key
 and g._MGIType_key = 8
 go
 
 delete GXD_Assay
-from #toDelete d, GXD_Assay g
+from #todelete d, GXD_Assay g
 where d._Assay_key = g._Assay_key
+go
+
+drop table #todelete
+go
+
+select _Image_key into #todelete from IMG_Image where _Refs_key = 124081
+go
+create index idx1 on #todelete(_Image_key)
+go
+
+delete MGI_Note from MGI_Note, #todelete d
+where MGI_Note._MGIType_key = 9
+and MGI_Note._Object_key = d._Image_key
+go
+
+delete IMG_Cache from IMG_Cache, #todelete d
+where IMG_Cache._Image_key = d._Image_key
+go
+ 
+delete IMG_Cache from IMG_Cache, #todelete d
+where IMG_Cache._ThumbnailImage_key = d._Image_key
+go
+  
+delete IMG_ImagePane from IMG_ImagePane, #todelete d
+where IMG_ImagePane._Image_key = d._Image_key
+go
+   
+delete ACC_Accession
+from ACC_Accession a, #todelete d
+where a._Object_key = d._Image_key
+and a._MGIType_key = 9
 go
 
 delete from IMG_Image where _Refs_key = 124081
