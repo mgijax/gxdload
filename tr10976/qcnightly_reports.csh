@@ -17,7 +17,8 @@ touch ${LOG}
 
 echo `date`: Start nightly QC reports | tee -a ${LOG}
 
-foreach qcdir (${QCMGD} ${QCWEEKLY} ${QCMONTHLY})
+#foreach qcdir (${QCMGD} ${QCWEEKLY} ${QCMONTHLY})
+foreach qcdir (${QCWEEKLY} ${QCMONTHLY})
 
 cd $qcdir
 
