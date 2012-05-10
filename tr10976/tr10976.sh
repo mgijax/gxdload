@@ -40,7 +40,30 @@ go
 delete from GXD_Expression where _Refs_key = 124081
 go
 
-delete from GXD_Assay where _Refs_key = 124081
+select _Assay_key into #todelete from GXD_Assay where _Refs_key = 124081
+go
+create index idx1 on #todelete(_Assay_key)
+go
+
+delete GXD_Specimen
+from #toDelete d, GXD_Specimen g
+where d._Assay_key = g._Assay_key
+go
+
+delete GXD_AssayNote
+from #toDelete d, GXD_AssayNote g
+where d._Assay_key = g._Assay_key
+go
+
+delete ACC_Accession
+from #toDelete d, ACC_Accession g
+where d._Assay_key = g._Object_key
+and g._MGIType_key = 8
+go
+
+delete GXD_Assay
+from #toDelete d, GXD_Assay g
+where d._Assay_key = g._Assay_key
 go
 
 delete from IMG_Image where _Refs_key = 124081
