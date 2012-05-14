@@ -103,7 +103,7 @@ go
 quit
 EOSQL
 echo "`date`" >> ${LOG}
-#exit 0
+xit 0
 
 #
 # Create a new source record with the appropriate attributes to use with
@@ -329,8 +329,7 @@ fi
 #
 echo "\n`date`" >> ${LOG}
 echo "Associate images with assay results" >> ${LOG}
-#${GXDIMAGELOAD}/assocResultImage.py >> ${LOG}
-${GXDIMAGELOAD}/assocResultImage.py
+${GXDIMAGELOAD}/assocResultImage.py >> ${LOG}
 if [ $? -ne 0 ]
 then
     echo 'assocResultImage.py failed' >> ${LOG}
