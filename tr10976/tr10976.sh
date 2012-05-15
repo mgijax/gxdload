@@ -103,7 +103,7 @@ go
 quit
 EOSQL
 echo "`date`" >> ${LOG}
-xit 0
+#exit 0
 
 #
 # Create a new source record with the appropriate attributes to use with
