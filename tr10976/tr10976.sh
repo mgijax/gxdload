@@ -378,13 +378,13 @@ fi
 #
 echo "\n`date`" >> ${LOG}
 echo "Running some reports..." >> ${LOG}
+cd `dirname $0`
 ./qcnightly_reports.csh >> ${LOG}
 if [ $? -ne 0 ]
 then
     echo 'qcnightly_reports.csh failed' >> ${LOG}
     exit 1
 fi
-
 
 date >> ${LOG}
 exit 0
