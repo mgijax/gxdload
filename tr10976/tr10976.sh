@@ -193,14 +193,14 @@ echo "`date`" >> ${LOG}
 #
 # Copy fullsize and thumbnail images to Pixel DB.
 #
-#echo "\n`date`" >> ${LOG}
-#echo "Copy fullsize and thumbnail images to Pixel DB" >> ${LOG}
-#${GXDIMAGELOAD}/tr10976pixload.sh >> ${LOG}
-#if [ $? -ne 0 ]
-#then
-#    echo 'tr10976pixload.sh failed' >> ${LOG}
-#    exit 1
-#fi
+echo "\n`date`" >> ${LOG}
+echo "Copy fullsize and thumbnail images to Pixel DB" >> ${LOG}
+${GXDIMAGELOAD}/tr10976pixload.sh >> ${LOG}
+if [ $? -ne 0 ]
+then
+    echo 'tr10976pixload.sh failed' >> ${LOG}
+    exit 1
+fi
 #exit 0
 
 #
