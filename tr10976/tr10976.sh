@@ -34,6 +34,11 @@ cat - <<EOSQL | doisql.csh ${MGD_DBSERVER} ${MGD_DBNAME} $0 >> ${LOG}
 use ${MGD_DBNAME}
 go
 
+update ACC_ActualDB set url =
+'http://www.genepaint.org/cgi-bin/mgrqcgi94?APPNAME=genepaint&PRGNAME=analysis_viewer&ARGUMENTS=-AQ76649667431800,-A@@@@'
+where _LogicalDB_key = 105
+go
+
 delete from GXD_Index where _Refs_key = 124081
 go
 
