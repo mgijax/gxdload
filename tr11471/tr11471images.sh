@@ -17,25 +17,24 @@ touch ${LOG}
 #
 # Copy fullsize images to Pixel DB.
 #
-echo "\n`date`" >> ${LOG}
-echo "Copy fullsize to Pixel DB" >> ${LOG}
-${GXDIMAGELOAD}/pixload.sh >> ${LOG}
-if [ $? -ne 0 ]
-then
-    echo 'pixload.sh failed' >> ${LOG}
-    exit 1
-fi
-exit 0
+#echo "\n`date`" >> ${LOG}
+#echo "Copy fullsize to Pixel DB" >> ${LOG}
+#${GXDIMAGELOAD}/pixload.sh >> ${LOG}
+#if [ $? -ne 0 ]
+#then
+#    echo 'pixload.sh failed' >> ${LOG}
+#    exit 1
+#fi
 
 #
 # Create fullsize image input files for the GXD image load.
 #
 echo "\n`date`" >> ${LOG}
 echo "Create fullsize image input files for the GXD image load" >> ${LOG}
-${GXDIMAGELOAD}/tr11471fullsize.py >> ${LOG}
+${GXDIMAGELOAD}/tr11471preFullsize.py >> ${LOG}
 if [ $? -ne 0 ]
 then
-    echo 'tr11471fullsize.py failed' >> ${LOG}
+    echo 'tr11471preFullsize.py failed' >> ${LOG}
     exit 1
 fi
 
