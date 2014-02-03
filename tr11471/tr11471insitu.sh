@@ -3,31 +3,17 @@
 #
 # TR 11471
 #
-# Wrapper script for loading Eurexpress assays into GXD for TR 11471
+# Wrapper script for loading
 #
 
 cd `dirname $0`
 
 . ./tr11471.config
 
-SCRIPT_NAME=`basename $0`
-
-LOG=${PROJECTDIR}/${SCRIPT_NAME}.log
+LOG=${PROJECTDIR}/$0.log
 rm -rf ${LOG}
 touch ${LOG}
  
-#
-# Create LoadFile4 (pre-process the LoadFile3.txt file)
-#
-#echo "\n`date`" >> ${LOG}
-#echo "Creted LoadFile4.txt" >> ${LOG}
-#${ASSAYLOAD}/tr11471structure.py >> ${LOG}
-#if [ $? -ne 0 ]
-#then
-#    echo 'tr11471structure.py failed' >> ${LOG}
-#    exit 1
-#fi
-
 #
 # Create the input files for the in situ load.
 #
@@ -41,7 +27,6 @@ then
 fi
 exit 0
 
-#
 # Load the assays and results.
 #
 echo "\n`date`" >> ${LOG}
@@ -53,6 +38,7 @@ then
     exit 1
 fi
 
+#
 #
 # Associate images with assay results.
 #
@@ -80,26 +66,26 @@ fi
 #
 # Reload the MRK_Reference table.
 #
-echo "\n`date`" >> ${LOG}
-echo "Reload the MRK_Reference table" >> ${LOG}
-${MRKCACHELOAD}/mrkref.csh >> ${LOG}
-if [ $? -ne 0 ]
-then
-    echo 'mrkref.csh failed' >> ${LOG}
-    exit 1
-fi
+#echo "\n`date`" >> ${LOG}
+#echo "Reload the MRK_Reference table" >> ${LOG}
+#${MRKCACHELOAD}/mrkref.csh >> ${LOG}
+#if [ $? -ne 0 ]
+#then
+#    echo 'mrkref.csh failed' >> ${LOG}
+#    exit 1
+#fi
 
 #
 # Reload the IMG_Cache table.
 #
-echo "\n`date`" >> ${LOG}
-echo "Reload the IMG_Cache table" >> ${LOG}
-${MGICACHELOAD}/imgcache.csh >> ${LOG}
-if [ $? -ne 0 ]
-then
-    echo 'imgcache.csh failed' >> ${LOG}
-    exit 1
-fi
+#echo "\n`date`" >> ${LOG}
+#echo "Reload the IMG_Cache table" >> ${LOG}
+#${MGICACHELOAD}/imgcache.csh >> ${LOG}
+#if [ $? -ne 0 ]
+#then
+#    echo 'imgcache.csh failed' >> ${LOG}
+#    exit 1
+#fi
 
 date >> ${LOG}
 exit 0
