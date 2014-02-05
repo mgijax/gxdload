@@ -14,18 +14,37 @@ LOG=${PROJECTDIR}/$0.log
 rm -rf ${LOG}
 touch ${LOG}
  
+
+cat - <<EOSQL | doisql.csh $MGD_DBSERVER $MGD_DBNAME $0 | tee -a $LOG
+
+use $MGD_DBNAME
+go
+
+delete from GXD_Assay where _Refs_key = 172505
+go
+
+delete from GXD_Index where _Refs_key = 172505
+go
+
+checkpoint
+go
+
+end
+
+EOSQL
+
 #
 # Create the input files for the in situ load.
 #
 echo "\n`date`" >> ${LOG}
 echo "Create the input files for the in situ load" >> ${LOG}
-${ASSAYLOAD}/tr11471insitu.py >> ${LOG}
+${ASSAYLOAD}/tr11471insitu.py
+#${ASSAYLOAD}/tr11471insitu.py >> ${LOG}
 if [ $? -ne 0 ]
 then
     echo 'tr11471insitu.py failed' >> ${LOG}
     exit 1
 fi
-exit 0
 
 # Load the assays and results.
 #
@@ -37,6 +56,7 @@ then
     echo 'insituload.py failed' >> ${LOG}
     exit 1
 fi
+exit 0
 
 #
 #
