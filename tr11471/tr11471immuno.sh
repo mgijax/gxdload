@@ -26,14 +26,12 @@ touch ${LOG}
 #
 echo "\n`date`" >> ${LOG}
 echo "Create the input files for the immunohistochemistry load" >> ${LOG}
-${ASSAYLOAD}/tr11471immuno.py
-#${ASSAYLOAD}/tr11471immuno.py >> ${LOG}
+${ASSAYLOAD}/tr11471immuno.py >> ${LOG}
 if [ $? -ne 0 ]
 then
     echo 'tr11471immuno.py failed' >> ${LOG}
     exit 1
 fi
-exit 0
 
 # Load the assays and results.
 #
@@ -45,6 +43,7 @@ then
     echo 'immunoload.py failed' >> ${LOG}
     exit 1
 fi
+exit 0
 
 #
 #
