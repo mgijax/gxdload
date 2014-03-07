@@ -43,20 +43,6 @@ then
     echo 'immunoload.py failed' >> ${LOG}
     exit 1
 fi
-exit 0
-
-#
-#
-# Associate images with assay results.
-#
-#echo "\n`date`" >> ${LOG}
-#echo "Associate images with assay results" >> ${LOG}
-#${GXDIMAGELOAD}/assocResultImage.py >> ${LOG}
-#if [ $? -ne 0 ]
-#then
-#    echo 'assocResultImage.py failed' >> ${LOG}
-#    exit 1
-#fi
 
 #
 # Create the literature index for the new assays.
