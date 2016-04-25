@@ -344,12 +344,12 @@ def process():
 	specimenID = tokens[0]
 	strength = tokens[1]
 	pattern = tokens[2]
-	emapID = tokens[3]
+	impcID = tokens[3]
 	resultNote = tokens[4]
 	imageName = tokens[5]
 
-	structureName = emapLookup[emapID][0][1]
-	structureTheilerStage = emapLookup[emapID][0][2]
+	emapaID = emapLookup[impcID][0][1]
+	structureTS = emapLookup[impcID][0][2]
 
 	if imageLookup.has_key(imageName):
 	    imageName = imageLookup[specimenID][0]
@@ -367,8 +367,8 @@ def process():
 	    str(resultKey) + TAB + \
 	    strength + TAB + \
 	    pattern + TAB + \
-	    structureName + TAB + \
-	    str(structureTheilerStage) + TAB + \
+	    emapaID + TAB + \
+	    str(structureTS) + TAB + \
 	    resultNote + TAB + \
 	    str(imageName) + CRT)
 

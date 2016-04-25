@@ -38,8 +38,6 @@ then
     exit 1
 fi
 
-exit 0
-
 # Load the assays and results.
 #
 echo "\n`date`" >> ${LOG}
