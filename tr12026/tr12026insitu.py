@@ -235,8 +235,7 @@ def process():
     results = db.sql('''
 	select ii._ImagePane_key, i.figureLabel 
 	from IMG_Image i, IMG_ImagePane ii
-	where i.figureLabel like 'JAX-%'
-	and i._Refs_key = 229658
+	where i._Refs_key = 229658
 	and i._Image_key = ii._Image_key
 	''', 'auto')
     for r in results:

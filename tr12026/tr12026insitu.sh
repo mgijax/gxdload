@@ -53,19 +53,6 @@ fi
 exit 0
 
 #
-#
-# Associate images with assay results.
-#
-#echo "\n`date`" >> ${LOG}
-#echo "Associate images with assay results" >> ${LOG}
-#${GXDIMAGELOAD}/assocResultImage.py >> ${LOG}
-#if [ $? -ne 0 ]
-#then
-#    echo 'assocResultImage.py failed' >> ${LOG}
-#    exit 1
-#fi
-
-#
 # Create the literature index for the new assays.
 #
 echo "\n`date`" >> ${LOG}
@@ -82,7 +69,7 @@ fi
 #
 echo "\n`date`" >> ${LOG}
 echo "Reload the GXD_Expression table" >> ${LOG}
-${MMGIACHELOAD}/gxdexpression.csh >> ${LOG}
+${MGICACHELOAD}/gxdexpression.csh >> ${LOG}
 if [ $? -ne 0 ]
 then
     echo 'gxdexpression.csh failed' >> ${LOG}
