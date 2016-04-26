@@ -32,7 +32,8 @@ EOSQL
 #
 echo "\n`date`" >> ${LOG}
 echo "Create the input files for the in situ load" >> ${LOG}
-${GXDLOAD}/tr12026//tr12026insitu.py >> ${LOG}
+${GXDLOAD}/tr12026/tr12026insitu.py
+#${GXDLOAD}/tr12026/tr12026insitu.py >> ${LOG}
 if [ $? -ne 0 ]
 then
     echo 'tr12026insitu.py failed' >> ${LOG}
