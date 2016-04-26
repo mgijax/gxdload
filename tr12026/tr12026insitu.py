@@ -313,7 +313,7 @@ def process():
 	specimenFile.write(str(assayKey) + TAB + \
 	    str(specimenKey) + TAB + \
 	    specimenID + TAB + \
-	    genotype + TAB + \
+	    mgigenotype + TAB + \
 	    age + TAB + \
 	    ageNote + TAB + \
 	    sex + TAB + \
