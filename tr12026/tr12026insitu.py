@@ -85,7 +85,8 @@ import os
 import string
 import db
 
-#globals
+db.setAutoTranslate(False)
+db.setAutoTranslateBE(False)
 
 TAB = '\t'		# tab
 CRT = '\n'		# carriage return/newline
