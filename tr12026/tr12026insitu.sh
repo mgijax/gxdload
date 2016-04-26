@@ -32,8 +32,7 @@ EOSQL
 #
 echo "\n`date`" >> ${LOG}
 echo "Create the input files for the in situ load" >> ${LOG}
-${GXDLOAD}/tr12026/tr12026insitu.py
-#${GXDLOAD}/tr12026/tr12026insitu.py >> ${LOG}
+${GXDLOAD}/tr12026/tr12026insitu.py >> ${LOG}
 if [ $? -ne 0 ]
 then
     echo 'tr12026insitu.py failed' >> ${LOG}
@@ -57,14 +56,14 @@ exit 0
 #
 # Associate images with assay results.
 #
-echo "\n`date`" >> ${LOG}
-echo "Associate images with assay results" >> ${LOG}
-${GXDIMAGELOAD}/assocResultImage.py >> ${LOG}
-if [ $? -ne 0 ]
-then
-    echo 'assocResultImage.py failed' >> ${LOG}
-    exit 1
-fi
+#echo "\n`date`" >> ${LOG}
+#echo "Associate images with assay results" >> ${LOG}
+#${GXDIMAGELOAD}/assocResultImage.py >> ${LOG}
+#if [ $? -ne 0 ]
+#then
+#    echo 'assocResultImage.py failed' >> ${LOG}
+#    exit 1
+#fi
 
 #
 # Create the literature index for the new assays.
