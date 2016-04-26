@@ -1,7 +1,7 @@
 #!/bin/sh
 
 #
-# TR 12026
+# TR 12026/lacZ
 #
 # Wrapper script for loading
 #
@@ -15,13 +15,6 @@ LOG=${PROJECTDIR}/$0.log
 rm -rf ${LOG}
 touch ${LOG}
  
-#
-# IF DOING WI TESTING, RUN:
-#	wi/admin/cleanup
-#
-# TO REMOVE CACHED DATA
-#
-
 cat - <<EOSQL | ${PG_DBUTILS}/bin/doisql.csh $0 | tee -a $LOG
 delete from GXD_Assay where _Refs_key = 229658 ;
 delete from GXD_Index where _Refs_key = 229658 ;
@@ -49,8 +42,6 @@ then
     echo 'insituload.py failed' >> ${LOG}
     exit 1
 fi
-
-exit 0
 
 #
 # Create the literature index for the new assays.
