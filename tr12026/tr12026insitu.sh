@@ -81,5 +81,17 @@ then
     exit 1
 fi
 
+#
+# reports
+#
+echo "\n`date`" >> ${LOG}
+echo "reports" >> ${LOG}
+${GXDLOAD}/tr12026}/laczreports.csh >> ${LOG}
+if [ $? -ne 0 ]
+then
+    echo 'laczreports.csh failed' >> ${LOG}
+    exit 1
+fi
+
 date >> ${LOG}
 exit 0
