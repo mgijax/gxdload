@@ -6,15 +6,16 @@
 # Wrapper script for loading
 #
 
-cd `dirname $0`
+cd ${GXDLOAD}/tr12026
 
-. ${GXDLOAD}/tr12026/tr12026.config
-cd ${ASSAYLOADDATADIR}
+. ./tr12026.config
 
-LOG=${PROJECTDIR}/$0.log
+LOG=${PROJECTDIR}/tr12026insitu.sh.log
 rm -rf ${LOG}
 touch ${LOG}
  
+cd ${ASSAYLOADDATADIR}
+
 date >> ${LOG}
 
 cat - <<EOSQL | ${PG_DBUTILS}/bin/doisql.csh $0 | tee -a $LOG
