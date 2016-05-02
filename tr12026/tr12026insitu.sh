@@ -87,7 +87,7 @@ fi
 #
 echo "\n`date`" >> ${LOG}
 echo "reports" >> ${LOG}
-${GXDLOAD}/tr12026}/laczreports.csh >> ${LOG}
+${GXDLOAD}/tr12026/laczreports.csh >> ${LOG}
 if [ $? -ne 0 ]
 then
     echo 'laczreports.csh failed' >> ${LOG}
@@ -99,7 +99,7 @@ fi
 #
 echo "\n`date`" >> ${LOG}
 echo "checks" >> ${LOG}
-${GXDLOAD}/tr12026}/checks.csh >> ${LOG}
+${GXDLOAD}/tr12026/checks.csh >> ${LOG}
 if [ $? -ne 0 ]
 then
     echo 'checks.csh failed' >> ${LOG}
