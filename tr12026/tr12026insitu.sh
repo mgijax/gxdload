@@ -93,5 +93,17 @@ then
     exit 1
 fi
 
+#
+# checks
+#
+echo "\n`date`" >> ${LOG}
+echo "checks" >> ${LOG}
+${GXDLOAD}/tr12026}/checks.csh >> ${LOG}
+if [ $? -ne 0 ]
+then
+    echo 'checks.csh failed' >> ${LOG}
+    exit 1
+fi
+
 date >> ${LOG}
 exit 0
