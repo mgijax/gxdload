@@ -27,6 +27,7 @@ date | tee -a $LOG
 #
 #
 echo "Load the probe notes" | tee -a ${LOG}
+cd ${PROBELOADDATADIR}
 ${PROBELOAD}/probenotes.py | tee -a ${LOG}
 if [ $? -ne 0 ]
 then
