@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -f
 
 #
 # TR 12491
@@ -26,14 +26,14 @@ date | tee -a $LOG
 # Load the probe notes
 #
 #
-echo "Load the probe notes" | tee -a ${LOG}
-cd ${PROBELOADDATADIR}
-${PROBELOAD}/probenotes.py | tee -a ${LOG}
-if [ $? -ne 0 ]
-then
-    echo 'probenotes.py failed' | tee -a ${LOG}
-    exit 1
-fi
+#echo "Load the probe notes" | tee -a ${LOG}
+#cd ${PROBELOADDATADIR}
+#${PROBELOAD}/probenotes.py | tee -a ${LOG}
+#if [ $? -ne 0 ]
+#then
+#    echo 'probenotes.py failed' | tee -a ${LOG}
+#    exit 1
+#fi
 
 date | tee -a $LOG
 
