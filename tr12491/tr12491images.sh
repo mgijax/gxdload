@@ -37,7 +37,6 @@ then
     echo 'tr12491preFullsize.py failed' >> ${LOG}
     exit 1
 fi
-exit 0
 
 echo "\n`date`" >> ${LOG}
 echo "Create the fullsize image stubs" >> ${LOG}
