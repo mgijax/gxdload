@@ -19,7 +19,7 @@ touch ${LOG}
 #
 echo "\n`date`" >> ${LOG}
 echo "Copy fullsize to Pixel DB" >> ${LOG}
-${GXDIMAGELOAD}/pixload.sh >> ${LOG}
+${GXDIMAGELOAD}/pixload.csh >> ${LOG}
 if [ $? -ne 0 ]
 then
     echo 'pixload.sh failed' >> ${LOG}
