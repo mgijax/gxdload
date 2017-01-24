@@ -17,35 +17,27 @@ touch ${LOG}
 #
 # Copy fullsize images to Pixel DB.
 #
-echo "\n`date`" >> ${LOG}
-echo "Copy fullsize to Pixel DB" >> ${LOG}
-${GXDIMAGELOAD}/pixload.csh ${FULLSIZE_IMAGE_DIR} ${PIX_FULLSIZE} >> ${LOG}
-if [ $? -ne 0 ]
-then
-    echo 'pixload.sh failed' >> ${LOG}
-    exit 1
-fi
-exit 0
+#echo "\n`date`" >> ${LOG}
+#echo "Copy fullsize to Pixel DB" >> ${LOG}
+#${GXDIMAGELOAD}/pixload.csh ${FULLSIZE_IMAGE_DIR} ${PIX_FULLSIZE} >> ${LOG}
+#if [ $? -ne 0 ]
+#then
+#    echo 'pixload.sh failed' >> ${LOG}
+#    exit 1
+#fi
 
 #
 # Create fullsize image input files for the GXD image load.
 #
 echo "\n`date`" >> ${LOG}
 echo "Create fullsize image input files for the GXD image load" >> ${LOG}
-${GXDLOAD}/tr12491/tr12491preFullsize.py >> ${LOG}
+${GXDLOAD}/tr12491/tr12491PreFullsize.py >> ${LOG}
 if [ $? -ne 0 ]
 then
     echo 'tr12491preFullsize.py failed' >> ${LOG}
     exit 1
 fi
 exit 0
-
-#
-# Create the fullsize image stubs.
-#
-IMAGEFILE=${IMAGE_FULLSIZE}; export IMAGEFILE
-IMAGEPANEFILE=${IMAGEPANE_FULLSIZE}; export IMAGEPANEFILE
-OUTFILE_QUALIFIER=${QUALIFIER_FULLSIZE}; export OUTFILE_QUALIFIER
 
 echo "\n`date`" >> ${LOG}
 echo "Create the fullsize image stubs" >> ${LOG}
@@ -55,6 +47,7 @@ then
     echo 'gxdimageload.py failed' >> ${LOG}
     exit 1
 fi
+exit 0
 
 #
 # The note load creates output files in the current directory, so go to
