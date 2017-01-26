@@ -10,13 +10,14 @@ cd `dirname $0`
 
 . ./tr12491.config
 
-LOG=${PROJECTDIR}/$0.log
+LOG=${IMAGELOADDATADIR}/$0.log
 rm -rf ${LOG}
 touch ${LOG}
  
+cd ${IMAGELOADDATADIR}
+
 #
 # Copy fullsize images to Pixel DB.
-#
 #echo "\n`date`" >> ${LOG}
 #echo "Copy fullsize to Pixel DB" >> ${LOG}
 #${GXDIMAGELOAD}/pixload.csh ${FULLSIZE_IMAGE_DIR} ${PIX_FULLSIZE} >> ${LOG}
@@ -46,20 +47,16 @@ then
     echo 'gxdimageload.py failed' >> ${LOG}
     exit 1
 fi
-exit 0
-
-#
-# The note load creates output files in the current directory, so go to
-# the directory where the files should be located.
-#
-cd ${IMAGELOADDATADIR}
 
 #
 # Load copyright notes.
 #
+NOTEINPUTFILE=${COPYRIGHTFILE}
+NOTELOG=${COPYRIGHTFILE}.log
+NOTETYPE="Copyright"
 echo "\n`date`" >> ${LOG}
 echo "Load copyright notes" >> ${LOG}
-${NOTELOAD}/mginoteload.py -S${MGD_DBSERVER} -D${MGD_DBNAME} -U${MGD_DBUSER} -P${MGD_DBPASSWORDFILE} -I${COPYRIGHTFILE} -M${NOTELOADMODE} -O${IMAGE_OBJECTTYPE} -T${COPYRIGHT_NOTETYPE} >> ${LOG}
+${NOTELOAD}/mginoteload.py -S${MGD_DBSERVER} -D${MGD_DBNAME} -U${MGD_DBUSER} -P${MGD_DBPASSWORDFILE} -I${NOTEINPUTFILE} -M${NOTEMODE} -O${NOTEOBJECTTYPE} -T${NOTETYPE} >> ${LOG}
 if [ $? -ne 0 ]
 then
     echo 'mginoteload.py failed' >> ${LOG}
@@ -69,9 +66,12 @@ fi
 #
 # Load caption notes.
 #
+NOTEINPUTFILE=${CAPTIONFILE}
+NOTELOG=${CAPTIONFILE}.log
+NOTETYPE="Caption"
 echo "\n`date`" >> ${LOG}
 echo "Load caption notes" >> ${LOG}
-${NOTELOAD}/mginoteload.py -S${MGD_DBSERVER} -D${MGD_DBNAME} -U${MGD_DBUSER} -P${MGD_DBPASSWORDFILE} -I${CAPTIONFILE} -M${NOTELOADMODE} -O${IMAGE_OBJECTTYPE} -T${CAPTION_NOTETYPE} >> ${LOG}
+${NOTELOAD}/mginoteload.py -S${MGD_DBSERVER} -D${MGD_DBNAME} -U${MGD_DBUSER} -P${MGD_DBPASSWORDFILE} -I${NOTEINPUTFILE} -M${NOTEMODE} -O${NOTEOBJECTTYPE} -T${NOTETYPE} >> ${LOG}
 if [ $? -ne 0 ]
 then
     echo 'mginoteload.py failed' >> ${LOG}

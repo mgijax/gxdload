@@ -44,7 +44,7 @@
 #
 #      IMAGEPANE_FILE - Tab-delimited fields:
 #
-#           1) PIX ID (PIX:####)
+#           1) PIX ID (####)
 #           2: Pane Label
 #           3) X Dimension (width)
 #           4) Y Dimension (heigth)
@@ -157,7 +157,7 @@ def process ():
 
         tokens = string.split(line[:-1], '\t')
 	jpg = tokens[0]
-	pixID = 'PIX:' + tokens[1]
+	pixID = tokens[1]
 	figureLabel = jpg.replace('.jpg', '')
 
 	(xdim, ydim) = jpeginfo.getDimensions(pixelDBDir + '/' + jpg)
