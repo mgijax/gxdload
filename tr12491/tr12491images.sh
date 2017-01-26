@@ -15,7 +15,7 @@ rm -rf ${LOG}
 touch ${LOG}
  
 #cat - <<EOSQL | ${PG_DBUTILS}/bin/doisql.csh $0 | tee -a $LOG
-#delete from IMG_Image where _Image_key >= 491365;
+#delete from IMG_Image where _Image_key 
 #EOSQL
 
 cd ${IMAGELOADDATADIR}
