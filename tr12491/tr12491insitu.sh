@@ -1,16 +1,16 @@
 #!/bin/sh
 
 #
-# TR 12026/lacZ
+# TR 12491/lacZ
 #
 # Wrapper script for loading
 #
 
-cd ${GXDLOAD}/tr12026
+cd ${GXDLOAD}/tr12491
 
-. ./tr12026.config
+. ./tr12491.config
 
-LOG=${PROJECTDIR}/tr12026insitu.sh.log
+LOG=${PROJECTDIR}/tr12491insitu.sh.log
 rm -rf ${LOG}
 touch ${LOG}
  
@@ -18,20 +18,20 @@ cd ${ASSAYLOADDATADIR}
 
 date >> ${LOG}
 
-cat - <<EOSQL | ${PG_DBUTILS}/bin/doisql.csh $0 | tee -a $LOG
-delete from GXD_Assay where _Refs_key = 229658 ;
-delete from GXD_Index where _Refs_key = 229658 ;
-EOSQL
+#cat - <<EOSQL | ${PG_DBUTILS}/bin/doisql.csh $0 | tee -a $LOG
+#delete from GXD_Assay where _Refs_key = 229658 ;
+#delete from GXD_Index where _Refs_key = 229658 ;
+#EOSQL
 
 #
 # Create the input files for the in situ load.
 #
 echo "\n`date`" >> ${LOG}
 echo "Create the input files for the in situ load" >> ${LOG}
-${GXDLOAD}/tr12026/tr12026insitu.py >> ${LOG}
+${GXDLOAD}/tr12491/tr12491insitu.py >> ${LOG}
 if [ $? -ne 0 ]
 then
-    echo 'tr12026insitu.py failed' >> ${LOG}
+    echo 'tr12491insitu.py failed' >> ${LOG}
     exit 1
 fi
 
@@ -45,6 +45,7 @@ then
     echo 'insituload.py failed' >> ${LOG}
     exit 1
 fi
+exit 0
 
 #
 # Create the literature index for the new assays.
@@ -87,7 +88,7 @@ fi
 #
 echo "\n`date`" >> ${LOG}
 echo "reports" >> ${LOG}
-${GXDLOAD}/tr12026/laczreports.csh >> ${LOG}
+${GXDLOAD}/tr12491/laczreports.csh >> ${LOG}
 if [ $? -ne 0 ]
 then
     echo 'laczreports.csh failed' >> ${LOG}
@@ -99,7 +100,7 @@ fi
 #
 echo "\n`date`" >> ${LOG}
 echo "checks" >> ${LOG}
-${GXDLOAD}/tr12026/checks.csh >> ${LOG}
+${GXDLOAD}/tr12491/checks.csh >> ${LOG}
 if [ $? -ne 0 ]
 then
     echo 'checks.csh failed' >> ${LOG}
