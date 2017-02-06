@@ -26,26 +26,25 @@ date >> ${LOG}
 #
 # Create the input files for the in situ load.
 #
-echo "\n`date`" >> ${LOG}
-echo "Create the input files for the in situ load" >> ${LOG}
-${GXDLOAD}/tr12491/tr12491insitu.py >> ${LOG}
-if [ $? -ne 0 ]
-then
-    echo 'tr12491insitu.py failed' >> ${LOG}
-    exit 1
-fi
+#echo "\n`date`" >> ${LOG}
+#echo "Create the input files for the in situ load" >> ${LOG}
+#${GXDLOAD}/tr12491/tr12491insitu.py >> ${LOG}
+#if [ $? -ne 0 ]
+#then
+#    echo 'tr12491insitu.py failed' >> ${LOG}
+#    exit 1
+#fi
 
 # Load the assays and results.
 #
-echo "\n`date`" >> ${LOG}
-echo "Load the assays and results" >> ${LOG}
-${ASSAYLOAD}/insituload.py >> ${LOG}
-if [ $? -ne 0 ]
-then
-    echo 'insituload.py failed' >> ${LOG}
-    exit 1
-fi
-exit 0
+#echo "\n`date`" >> ${LOG}
+#echo "Load the assays and results" >> ${LOG}
+#${ASSAYLOAD}/insituload.py >> ${LOG}
+#if [ $? -ne 0 ]
+#then
+#    echo 'insituload.py failed' >> ${LOG}
+#    exit 1
+#fi
 
 #
 # Create the literature index for the new assays.
@@ -80,30 +79,6 @@ ${MRKCACHELOAD}/mrkref.csh >> ${LOG}
 if [ $? -ne 0 ]
 then
     echo 'mrkref.csh failed' >> ${LOG}
-    exit 1
-fi
-
-#
-# reports
-#
-echo "\n`date`" >> ${LOG}
-echo "reports" >> ${LOG}
-${GXDLOAD}/tr12491/laczreports.csh >> ${LOG}
-if [ $? -ne 0 ]
-then
-    echo 'laczreports.csh failed' >> ${LOG}
-    exit 1
-fi
-
-#
-# checks
-#
-echo "\n`date`" >> ${LOG}
-echo "checks" >> ${LOG}
-${GXDLOAD}/tr12491/checks.csh >> ${LOG}
-if [ $? -ne 0 ]
-then
-    echo 'checks.csh failed' >> ${LOG}
     exit 1
 fi
 
