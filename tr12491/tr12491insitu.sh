@@ -26,25 +26,25 @@ date >> ${LOG}
 #
 # Create the input files for the in situ load.
 #
-#echo "\n`date`" >> ${LOG}
-#echo "Create the input files for the in situ load" >> ${LOG}
-#${GXDLOAD}/tr12491/tr12491insitu.py >> ${LOG}
-#if [ $? -ne 0 ]
-#then
-#    echo 'tr12491insitu.py failed' >> ${LOG}
-#    exit 1
-#fi
+echo "\n`date`" >> ${LOG}
+echo "Create the input files for the in situ load" >> ${LOG}
+${GXDLOAD}/tr12491/tr12491insitu.py >> ${LOG}
+if [ $? -ne 0 ]
+then
+    echo 'tr12491insitu.py failed' >> ${LOG}
+    exit 1
+fi
 
 # Load the assays and results.
 #
-#echo "\n`date`" >> ${LOG}
-#echo "Load the assays and results" >> ${LOG}
-#${ASSAYLOAD}/insituload.py >> ${LOG}
-#if [ $? -ne 0 ]
-#then
-#    echo 'insituload.py failed' >> ${LOG}
-#    exit 1
-#fi
+echo "\n`date`" >> ${LOG}
+echo "Load the assays and results" >> ${LOG}
+${ASSAYLOAD}/insituload.py >> ${LOG}
+if [ $? -ne 0 ]
+then
+    echo 'insituload.py failed' >> ${LOG}
+    exit 1
+fi
 
 #
 # Create the literature index for the new assays.
