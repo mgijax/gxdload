@@ -10,7 +10,7 @@ cd ${GXDLOAD}/tr12491
 
 . ./tr12491.config
 
-LOG=${PROJECTDIR}/tr12491insitu.sh.log
+LOG=${ASSAYLOADDATADIR}/tr12491insitu.sh.log
 rm -rf ${LOG}
 touch ${LOG}
  
