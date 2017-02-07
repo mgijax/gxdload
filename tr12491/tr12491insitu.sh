@@ -18,10 +18,10 @@ cd ${ASSAYLOADDATADIR}
 
 date >> ${LOG}
 
-#cat - <<EOSQL | ${PG_DBUTILS}/bin/doisql.csh $0 | tee -a $LOG
 #delete from GXD_Assay where _Refs_key = 229658 ;
-#delete from GXD_Index where _Refs_key = 229658 ;
-#EOSQL
+cat - <<EOSQL | ${PG_DBUTILS}/bin/doisql.csh $0 | tee -a $LOG
+delete from GXD_Index where _Refs_key = 229658 ;
+EOSQL
 
 #
 # Create the input files for the in situ load.
