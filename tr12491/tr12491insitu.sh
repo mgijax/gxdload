@@ -6,6 +6,14 @@
 # Wrapper script for loading
 #
 
+if [ "${MGICONFIG}" = "" ]
+then
+    MGICONFIG=/usr/local/mgi/live/mgiconfig
+    export MGICONFIG
+fi
+
+. ${MGICONFIG}/master.config.sh
+
 cd ${GXDLOAD}/tr12491
 
 . ./tr12491.config
