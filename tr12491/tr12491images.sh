@@ -15,7 +15,12 @@ rm -rf ${LOG}
 touch ${LOG}
  
 #cat - <<EOSQL | ${PG_DBUTILS}/bin/doisql.csh $0 | tee -a $LOG
-#delete from IMG_Image where _Image_key 
+#--delete from IMG_Image where _Image_key 
+#--update MGI_NoteChunk
+#--set note = 'This image was contributed directly to GXD by the authors. Questions regarding this image or 
+#--its use in publications should be directed to Jordan Lewandowski via email at jordan.lewandowski@utexas.edu'
+#--where _note_key between 598277351 and 598279050
+#--;
 #EOSQL
 
 cd ${IMAGELOADDATADIR}
