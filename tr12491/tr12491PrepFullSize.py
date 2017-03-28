@@ -44,7 +44,7 @@
 #
 #      IMAGEPANE_FILE - Tab-delimited fields:
 #
-#           1) PIX ID (PIX:####)
+#           1) PIX ID (####)
 #           2: Pane Label
 #           3) X Dimension (width)
 #           4) Y Dimension (heigth)
@@ -79,9 +79,11 @@ pixFile = os.environ['PIX_FULLSIZE']
 imageFile = os.environ['IMAGEFILE']
 imagePaneFile = os.environ['IMAGEPANEFILE']
 jNumber = os.environ['REFERENCE']
-copyright = os.environ['COPYRIGHTFILE']
-caption = os.environ['CAPTIONFILE']
 imageType = os.environ['IMAGETYPE']
+
+copyright = '''This image was contributed directly to GXD by the authors. Questions regarding this image or its use in publications should be directed to Jordan Lewandowskivia email at jordan.lewandowski@utexas.edu'''
+
+caption = '''The naming convention used for this set of images is as follows: 1) gene and/or RIKEN FANTOM2 id; 2) array probe (a# or b# -- internal lab use); 3) embryonic age followed by unique embryo indicator (a-d); 4) limb designation, if applicable; RF, right forelimb; LF, left forelimb; RHL, right hindlimb; HLR, right hindlimb; and 5) initials of author (JL) or date.'''
 
 #
 # Purpose: Open the files.
@@ -155,8 +157,8 @@ def process ():
 
         tokens = string.split(line[:-1], '\t')
 	jpg = tokens[0]
-	pixID = 'PIX:' + tokens[1]
-	figureLabel = jpg.rename('.jpg', '')
+	pixID = tokens[1]
+	figureLabel = jpg.replace('.jpg', '')
 
 	(xdim, ydim) = jpeginfo.getDimensions(pixelDBDir + '/' + jpg)
 
