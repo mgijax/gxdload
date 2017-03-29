@@ -157,7 +157,6 @@ def process ():
 	figureLabel = figureLabel.replace('.jpg', '')
 
 	image = '%s/%s.jpg' % (pixelDBDir, pixID)   
-	xdim = ydim = 0
 	(xdim, ydim) = jpeginfo.getDimensions(image)
 
 	fpImageFile.write(jNumber + '\t' +
