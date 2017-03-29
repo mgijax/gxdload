@@ -38,7 +38,7 @@ using todelete d
 where d._Note_key = n._Note_key
 ;
 
-delete from IMG_Image where _Image_key >= 493809;
+--delete from IMG_Image where _Image_key >= 493809;
 
 EOSQL
 
