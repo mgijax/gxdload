@@ -60,10 +60,10 @@ EOSQL
 #
 echo "\n`date`" >> ${LOG}
 echo "Create fullsize image input files for the GXD image load" >> ${LOG}
-./impclaczPreFullsize.py >> ${LOG}
+${GXDLOAD}/tr12504/impclaczPreFullSize.py >> ${LOG}
 if [ $? -ne 0 ]
 then
-    echo 'impclaczPreFullsize.py failed' >> ${LOG}
+    echo 'impclaczPreFullSize.py failed' >> ${LOG}
     exit 1
 fi
 echo "\n`date`" >> ${LOG}
@@ -84,7 +84,7 @@ echo "\n`date`" >> ${LOG}
 #
 # process copyright
 #
-cd ${IMAGELOADDATADIR}
+cd ${IMAGELOADDIR}
 echo "\n`date`" >> ${LOG}
 echo "process copyright" >> ${LOG}
 ${NOTELOAD}/mginoteload.py -S${MGD_DBSERVER} -D${MGD_DBNAME} -U${MGD_DBUSER} -P${MGD_DBPASSWORDFILE} -I${COPYRIGHTFILE} -M${NOTELOADMODE} -O${IMAGE_OBJECTTYPE} -T\"${COPYRIGHTNOTETYPE}\" >> ${LOG}
