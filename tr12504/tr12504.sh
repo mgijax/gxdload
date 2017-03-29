@@ -38,7 +38,7 @@ using todelete d
 where d._Note_key = n._Note_key
 ;
 
---delete from IMG_Image where _Image_key >= 493809;
+delete from IMG_Image where _Image_key >= 493809;
 
 EOSQL
 
@@ -84,7 +84,7 @@ echo "\n`date`" >> ${LOG}
 #
 # process copyright
 #
-cd ${IMAGELOADDIR}
+cd ${IMAGELOADDATADIR}
 echo "\n`date`" >> ${LOG}
 echo "process copyright" >> ${LOG}
 ${NOTELOAD}/mginoteload.py -S${MGD_DBSERVER} -D${MGD_DBNAME} -U${MGD_DBUSER} -P${MGD_DBPASSWORDFILE} -I${COPYRIGHTFILE} -M${NOTELOADMODE} -O${IMAGE_OBJECTTYPE} -T\"${COPYRIGHTNOTETYPE}\" >> ${LOG}
