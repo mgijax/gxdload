@@ -43,28 +43,72 @@ touch ${LOG}
 #
 # Copy fullsize images to Pixel DB.
 #
-echo "\n`date`" >> ${LOG}
-echo "Copy fullsize to Pixel DB" >> ${LOG}
-./pixload.csh ${PROJECTDIR}/images ${PROJECTDIR}/imageload/impclacz-pixload.mapping >> ${LOG}
-if [ $? -ne 0 ]
-then
-    echo 'pixload.sh failed' >> ${LOG}
-    exit 1
-fi
-echo "\n`date`" >> ${LOG}
-exit 0
+#echo "\n`date`" >> ${LOG}
+#echo "Copy fullsize to Pixel DB" >> ${LOG}
+#./pixload.csh ${PROJECTDIR}/images ${PROJECTDIR}/imageload/impclacz-pixload.mapping >> ${LOG}
+#if [ $? -ne 0 ]
+#then
+#    echo 'pixload.sh failed' >> ${LOG}
+#    exit 1
+#fi
+#echo "\n`date`" >> ${LOG}
 
 #
 # Create fullsize image input files for the GXD image load.
 #
 echo "\n`date`" >> ${LOG}
 echo "Create fullsize image input files for the GXD image load" >> ${LOG}
-${GXDIMAGELOAD}/impclaczPreFullsize.py >> ${LOG}
+./impclaczPreFullsize.py >> ${LOG}
 if [ $? -ne 0 ]
 then
     echo 'impclaczPreFullsize.py failed' >> ${LOG}
     exit 1
 fi
+echo "\n`date`" >> ${LOG}
+exit 0
+
+#
+# Load fullsize images
+#
+echo "\n`date`" >> ${LOG}
+echo "Load fullsize images" >> ${LOG}
+${GXDIMAGELOAD}/gxdimageload.py >> ${LOG}
+if [ $? -ne 0 ]
+then
+    echo 'gxdimageload.py failed' >> ${LOG}
+    exit 1
+fi
+echo "\n`date`" >> ${LOG}
+exit 0
+
+#
+# process copyright
+#
+cd ${IMAGELOADDATADIR}
+echo "\n`date`" >> ${LOG}
+echo "process copyright" >> ${LOG}
+${NOTELOAD}/mginoteload.py -S${MGD_DBSERVER} -D${MGD_DBNAME} -U${MGD_DBUSER} -P${MGD_DBPASSWORDFILE} -I${COPYRIGHTFILE} -M${NOTELOADMODE} -O${IMAGE_OBJECTTYPE} -T\"${COPYRIGHTNOTETYPE}\" >> ${LOG}
+if [ $? -ne 0 ]
+then
+    echo '${NOTELOAD}/mginoteload.py copyright failed' >> ${LOG}
+    exit 1
+fi
+echo "\n`date`" >> ${LOG}
+exit 0
+
+#
+# process caption
+#
+cd ${IMAGELOADDATADIR}
+echo "\n`date`" >> ${LOG}
+echo "process caption" >> ${LOG}
+${NOTELOAD}/mginoteload.py -S${MGD_DBSERVER} -D${MGD_DBNAME} -U${MGD_DBUSER} -P${MGD_DBPASSWORDFILE} -I${CAPTIONFILE} -M${NOTELOADMODE} -O${IMAGE_OBJECTTYPE} -T\"${CAPTIONNOTETYPE}\" >> ${LOG}
+if [ $? -ne 0 ]
+then
+    echo '${NOTELOAD}/mginoteload.py caption failed' >> ${LOG}
+    exit 1
+fi
+echo "\n`date`" >> ${LOG}
 exit 0
 
 #
