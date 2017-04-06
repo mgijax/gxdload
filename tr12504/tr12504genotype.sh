@@ -10,7 +10,7 @@ cd `dirname $0`
 
 . ./tr12504.config
 
-LOG=${PROJECTDIR}/$0.log
+LOG=${PROJECTDIR}/tr12504genotype.log
 rm -rf ${LOG}
 touch ${LOG}
  
