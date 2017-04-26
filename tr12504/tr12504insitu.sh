@@ -83,28 +83,9 @@ then
 fi
 
 #
-# reports
+# qc_reports.csh
 #
-echo "\n`date`" >> ${LOG}
-echo "reports" >> ${LOG}
-${GXDLOAD}/tr12504/laczreports.csh >> ${LOG}
-if [ $? -ne 0 ]
-then
-    echo 'laczreports.csh failed' >> ${LOG}
-    exit 1
-fi
-
-#
-# checks
-#
-echo "\n`date`" >> ${LOG}
-echo "checks" >> ${LOG}
-${GXDLOAD}/tr12504/checks.csh >> ${LOG}
-if [ $? -ne 0 ]
-then
-    echo 'checks.csh failed' >> ${LOG}
-    exit 1
-fi
+./qcreports.csh >> ${LOG}
 
 date >> ${LOG}
 exit 0
