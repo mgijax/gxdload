@@ -6,19 +6,11 @@
 # Wrapper script for loading
 #
 
-if [ "${MGICONFIG}" = "" ]
-then
-    MGICONFIG=/usr/local/mgi/live/mgiconfig
-    export MGICONFIG
-fi
-
-. ${MGICONFIG}/master.config.sh
-
 cd ${GXDLOAD}/tr12504
 
 . ./tr12504.config
 
-LOG=${ASSAYLOADDATADIR}/tr12504insitu.sh.log
+LOG=${PROJECTDIR}/tr12504insitu.sh.log
 rm -rf ${LOG}
 touch ${LOG}
  
@@ -27,8 +19,8 @@ cd ${ASSAYLOADDATADIR}
 date >> ${LOG}
 
 cat - <<EOSQL | ${PG_DBUTILS}/bin/doisql.csh $0 | tee -a $LOG
---delete from GXD_Assay where _Refs_key = 229658 ;
-delete from GXD_Index where _Refs_key = 227123;
+delete from GXD_Assay where _Refs_key = 229658 ;
+delete from GXD_Index where _Refs_key = 229658 ;
 EOSQL
 
 #
@@ -42,6 +34,7 @@ then
     echo 'tr12504insitu.py failed' >> ${LOG}
     exit 1
 fi
+exit 0
 
 # Load the assays and results.
 #
@@ -87,6 +80,30 @@ ${MRKCACHELOAD}/mrkref.csh >> ${LOG}
 if [ $? -ne 0 ]
 then
     echo 'mrkref.csh failed' >> ${LOG}
+    exit 1
+fi
+
+#
+# reports
+#
+echo "\n`date`" >> ${LOG}
+echo "reports" >> ${LOG}
+${GXDLOAD}/tr12504/laczreports.csh >> ${LOG}
+if [ $? -ne 0 ]
+then
+    echo 'laczreports.csh failed' >> ${LOG}
+    exit 1
+fi
+
+#
+# checks
+#
+echo "\n`date`" >> ${LOG}
+echo "checks" >> ${LOG}
+${GXDLOAD}/tr12504/checks.csh >> ${LOG}
+if [ $? -ne 0 ]
+then
+    echo 'checks.csh failed' >> ${LOG}
     exit 1
 fi
 
