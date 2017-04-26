@@ -34,7 +34,6 @@ then
     echo 'tr12504insitu.py failed' >> ${LOG}
     exit 1
 fi
-exit 0
 
 # Load the assays and results.
 #

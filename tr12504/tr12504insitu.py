@@ -100,7 +100,7 @@ resultsFile = ''        # file descriptor
 datadir = os.environ['ASSAYLOADDATADIR']
 
 inGenotypeFileName = os.environ['PROJECTDIR'] + '/GenotypeTranslation.txt'
-inStructureFileName = os.environ['PROJECTDIR'] + 'StructureTranslation.txt'
+inStructureFileName = os.environ['PROJECTDIR'] + '/StructureTranslation.txt'
 inPrepFileName = os.environ['PROJECTDIR'] + '/InSituProbePrep.txt'
 inAssayFileName = os.environ['PROJECTDIR'] + '/InSituAssay.txt'
 inSpecimenFileName = os.environ['PROJECTDIR'] + '/InSituSpecimens.txt'
@@ -226,17 +226,17 @@ def process():
 
     # create lookup of images (_image_key, figureLabel)
 
-    imageLookup = {}
-    results = db.sql('''
-	select ii._ImagePane_key, i.figureLabel 
-	from IMG_Image i, IMG_ImagePane ii
-	where i._Refs_key = 229658
-	and i._Image_key = ii._Image_key
-	''', 'auto')
-    for r in results:
-	key = r['figureLabel']
-	imageLookup[key] = []
-	imageLookup[key].append(r['_ImagePane_key'])
+    #imageLookup = []
+    #results = db.sql('''
+#	select i.figureLabel 
+#	from IMG_Image i, IMG_ImagePane ii
+#	where i._Refs_key = 229658
+#	and i._Image_key = ii._Image_key
+#	''', 'auto')
+#    for r in results:
+#	key = r['figureLabel']
+#	imageLookup[key] = []
+#	imageLookup[key].append(r['_ImagePane_key'])
 
     # For each line in the input file
 
@@ -297,12 +297,15 @@ def process():
 	specimenHybridization = tokens[8]
 	specimenNote = ''
 
+	if genotype in genotypeLookup:
+	    mgigenotype = genotypeLookup[genotype][0]
+        else:
+	    continue
+
 	if markerID != prevMarkerID:
             specimenKey = 1
 	    assayKey = assayLookup[markerID]
 	    prevMarkerID = markerID
-
-	mgigenotype = genotypeLookup[genotype][0]
 
 	specimenFile.write(str(assayKey) + TAB + \
 	    str(specimenKey) + TAB + \
@@ -345,14 +348,17 @@ def process():
 	emapaID = emapLookup[impcID][0][1]
 	structureTS = emapLookup[impcID][0][2]
 
-	if imageLookup.has_key(imageName):
-	    imageName = imageLookup[specimenID][0]
-        else:
-	    imageName = ''
+	#if imageName in imageLookup:
+	#    imageName = imageLookup[imageName][0]
+        #else:
+	#    imageName = ''
 
 	if specimenID != prevSpecimenID:
             resultKey = 1
-	    specimenKey = specimenLookup[specimenID]
+	    if specimenID in specimenLookup:
+	        specimenKey = specimenLookup[specimenID]
+	    else:
+	    	continue
 	    assayKey = assayLookup[specimenProbeLookup[specimenID]]
 	    prevSpecimenID = specimenID
 
@@ -364,7 +370,7 @@ def process():
 	    emapaID + TAB + \
 	    str(structureTS) + TAB + \
 	    resultNote + TAB + \
-	    str(imageName) + CRT)
+	    str(imageName) + '|' + CRT)
 
         resultKey = resultKey + 1
 
