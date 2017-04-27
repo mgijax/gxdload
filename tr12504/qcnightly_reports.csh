@@ -14,16 +14,16 @@ setenv LOG `basename $0`.log
 rm -rf ${LOG}
 touch ${LOG}
 
-echo `date`: Start nightly QC reports | tee -a ${LOG}
+echo `date`: QC reports | tee -a ${LOG}
 
 cd ${QCMGD}
 
-foreach i (GXD_NotInCache)
+foreach i (GXD_NotInCache.sql)
     echo `date`: $i | tee -a ${LOG}
     ${QCRPTS}/reports.csh $i ${QCOUTPUTDIR}/$i.rpt ${MGD_DBSERVER} ${MGD_DBNAME}
 end
 
-foreach i (GXD_SameStructure GXD_ImagesUnused)
+foreach i (GXD_SameStructure.py GXD_ImagesUnused.py)
     echo `date`: $i | tee -a ${LOG}
     $i | tee -a ${LOG}
 end
@@ -35,4 +35,4 @@ foreach i (GXD_KnockInGene.sql)
     ${QCRPTS}/reports.csh $i ${QCOUTPUTDIR}/$i.rpt ${MGD_DBSERVER} ${MGD_DBNAME}
 end
 
-echo `date`: End nightly QC reports | tee -a ${LOG}
+echo `date`: End QC reports | tee -a ${LOG}

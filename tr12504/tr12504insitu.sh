@@ -85,7 +85,7 @@ fi
 #
 # qc_reports.csh
 #
-./qcreports.csh >> ${LOG}
+${GXDLOAD}/tr12504/qcnightly_reports.csh >> ${LOG}
 
 date >> ${LOG}
 exit 0
