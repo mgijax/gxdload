@@ -55,15 +55,24 @@ rm -rf ${OUTPUTFILE}
 touch ${OUTPUTFILE}
 echo "starting pix id: " $accID
 
-cd ${PROJECTDIR}/dataalz
-foreach j (`cat toadd`)
-	set n=`basename $j`
-	cp ${JPGDIRECTORY}/$j ${PIXELDBDATA}/$accID.jpg
-	echo "$n	$accID" >> ${OUTPUTFILE}
-	set accID=`expr $accID + 1`
-end
+#cd ${PROJECTDIR}/dataalz
+#foreach j (`cat toadd`)
+#	set n=`basename $j`
+#	cp ${JPGDIRECTORY}/$j ${PIXELDBDATA}/$accID.jpg
+#	echo "$n	$accID" >> ${OUTPUTFILE}
+#	set accID=`expr $accID + 1`
+#end
+#
+#cd ${PROJECTDIR}/dataelz
+#foreach j (`cat toadd`)
+#	set n=`basename $j`
+#	cp ${JPGDIRECTORY}/$j ${PIXELDBDATA}/$accID.jpg
+#	echo "$n	$accID" >> ${OUTPUTFILE}
+#	set accID=`expr $accID + 1`
+#end
 
-cd ${PROJECTDIR}/dataelz
+# some imagess were left out of the original 'toadd' list
+cd ${PROJECTDIR}/imageload
 foreach j (`cat toadd`)
 	set n=`basename $j`
 	cp ${JPGDIRECTORY}/$j ${PIXELDBDATA}/$accID.jpg

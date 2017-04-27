@@ -17,28 +17,28 @@ touch ${LOG}
 #
 # delete all existing Image Captions for J:228563
 #
-cat - <<EOSQL | ${PG_DBUTILS}/bin/doisql.csh $0 | tee -a $LOG
+#cat - <<EOSQL | ${PG_DBUTILS}/bin/doisql.csh $0 | tee -a $LOG
 
-select i._image_key, i.figurelabel, i._refs_key, a.accID, n._note_key
-into temp table todelete
-from IMG_Image i, ACC_Accession a, MGI_Note_Image_View n
-where i._image_key = a._object_key
-and i._refs_key = 229658
-and a.prefixpart = 'PIX:' 
-and i._image_key = n._object_key
-and n._mgitype_key = 9
-and n._notetype_key = 1024
-;
-
-select * from todelete
-;
-
-delete from MGI_Note n
-using todelete d
-where d._Note_key = n._Note_key
-;
-
-EOSQL
+#select i._image_key, i.figurelabel, i._refs_key, a.accID, n._note_key
+#into temp table todelete
+#from IMG_Image i, ACC_Accession a, MGI_Note_Image_View n
+#where i._image_key = a._object_key
+#and i._refs_key = 229658
+#and a.prefixpart = 'PIX:' 
+#and i._image_key = n._object_key
+#and n._mgitype_key = 9
+#and n._notetype_key = 1024
+#;
+#
+#select * from todelete
+#;
+#
+#delete from MGI_Note n
+#using todelete d
+#where d._Note_key = n._Note_key
+#;
+#
+#EOSQL
 
 #
 # Copy fullsize images to Pixel DB.
