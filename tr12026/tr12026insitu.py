@@ -65,9 +65,9 @@
 #
 #       3 tab-delimited files:
 #
-#	In_Situ_assay.txt
-#	In_Situ_specimen.txt
-#	In_Situ_results.txt
+#	InSitu_Assay.txt
+#	InSitu_Specimen.txt
+#	InSitu_Results.txt
 #	
 #       Error file
 #
