@@ -43,55 +43,55 @@ touch ${LOG}
 #
 # Copy fullsize images to Pixel DB.
 #
-echo "\n`date`" >> ${LOG}
-echo "Copy fullsize to Pixel DB" >> ${LOG}
+date >> ${LOG}
+echo 'Copy fullsize to Pixel DB' >> ${LOG}
 ./pixload.csh ${PROJECTDIR}/images ${PROJECTDIR}/imageload/impclacz-pixload.mapping >> ${LOG}
 if [ $? -ne 0 ]
 then
     echo 'pixload.sh failed' >> ${LOG}
     exit 1
 fi
-echo "\n`date`" >> ${LOG}
+date >> ${LOG}
 
 #
 # Create fullsize image input files for the GXD image load.
 #
-echo "\n`date`" >> ${LOG}
-echo "Create fullsize image input files for the GXD image load" >> ${LOG}
+date >> ${LOG}
+echo 'Create fullsize image input files for the GXD image load' >> ${LOG}
 ${GXDLOAD}/tr12504/impclaczPreFullSize.py >> ${LOG}
 if [ $? -ne 0 ]
 then
     echo 'impclaczPreFullSize.py failed' >> ${LOG}
     exit 1
 fi
-echo "\n`date`" >> ${LOG}
+date >> ${LOG}
 
 #
 # Load fullsize images
 #
-echo "\n`date`" >> ${LOG}
-echo "Load fullsize images" >> ${LOG}
+date >> ${LOG}
+echo 'Load fullsize images' >> ${LOG}
 ${GXDIMAGELOAD}/gxdimageload.py >> ${LOG}
 if [ $? -ne 0 ]
 then
     echo 'gxdimageload.py failed' >> ${LOG}
     exit 1
 fi
-echo "\n`date`" >> ${LOG}
+date >> ${LOG}
 
 #
 # process copyright
 #
 cd ${IMAGELOADDATADIR}
-echo "\n`date`" >> ${LOG}
-echo "process copyright" >> ${LOG}
+date >> ${LOG}
+echo 'process copyright' >> ${LOG}
 ${NOTELOAD}/mginoteload.py -S${MGD_DBSERVER} -D${MGD_DBNAME} -U${MGD_DBUSER} -P${MGD_DBPASSWORDFILE} -I${COPYRIGHTFILE} -M${NOTELOADMODE} -O${IMAGE_OBJECTTYPE} -T\"${COPYRIGHTNOTETYPE}\" >> ${LOG}
 if [ $? -ne 0 ]
 then
     echo '${NOTELOAD}/mginoteload.py copyright failed' >> ${LOG}
     exit 1
 fi
-echo "\n`date`" >> ${LOG}
+date >> ${LOG}
 
 cd `dirname $0`
 
