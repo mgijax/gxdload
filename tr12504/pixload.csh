@@ -75,7 +75,7 @@ echo "starting pix id: " $accID
 cd ${PROJECTDIR}/imageload
 foreach j (`cat toadd`)
 	set n=`basename $j`
-	cp ${JPGDIRECTORY}.*/$j ${PIXELDBDATA}/$accID.jpg
+	cp ${JPGDIRECTORY}/$j.* ${PIXELDBDATA}/$accID.jpg
 	echo "$n	$accID" >> ${OUTPUTFILE}
 	set accID=`expr $accID + 1`
 end
