@@ -19,12 +19,10 @@ touch $LOG
  
 date | tee -a $LOG
  
-#
-# grep thru log and then delete images from /data/pixeldb
-#
 foreach i (`cat deleteimages.jpg`)
-echo $i
 ls -l /data/pixeldb/$i.jpg
+#cp /data/pixeldb/$i.jpg pixeldb
+rm -rf /data/pixeldb/$i
 end
 
 date | tee -a $LOG
