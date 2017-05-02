@@ -19,7 +19,7 @@ touch $LOG
  
 date | tee -a $LOG
  
-foreach i (`cat deleteimages.jpg`)
+foreach i (`cat deletepixeldb.jpg`)
 ls -l /data/pixeldb/$i.jpg
 #cp /data/pixeldb/$i.jpg pixeldb
 rm -rf /data/pixeldb/$i

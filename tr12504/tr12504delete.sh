@@ -26,4 +26,9 @@ echo 'delete genotypes' >> ${LOG}
 ${GXDLOAD}/tr12504/deletegenotypes.csh >> $LOG
 date >> ${LOG}
 
+date >> ${LOG}
+echo 'delete pixeldb' >> ${LOG}
+${GXDLOAD}/tr12504/deletepixeldb.csh >> $LOG
+date >> ${LOG}
+
 exit 0
