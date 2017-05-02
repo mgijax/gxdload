@@ -40,7 +40,7 @@ create index idx_1 on toDelete(_Image_key);
 
 select * from toDelete;
 
-select numericPart from toDelete order by numericPart;
+--select numericPart from toDelete order by numericPart;
 
 delete from IMG_Image
 using toDelete
@@ -48,11 +48,6 @@ where toDelete._Image_key = IMG_Image._Image_key
 ;
 
 EOSQL
-
-#
-# grep thru log and then delete images from /data/pixeldb
-#
-#foreach i (deleteimages.jpg)
 
 date | tee -a $LOG
 
