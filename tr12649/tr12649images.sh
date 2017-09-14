@@ -14,6 +14,8 @@ LOG=${PROJECTDIR}/$0.log
 rm -rf ${LOG}
 touch ${LOG}
  
+date >> ${LOG}
+
 #
 # delete all Image Captions for J:171409 not used
 #
