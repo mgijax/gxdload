@@ -80,13 +80,12 @@ imageFile = os.environ['IMAGEFILE']
 imagePaneFile = os.environ['IMAGEPANEFILE']
 jNumber = os.environ['REFERENCE']
 imageType = os.environ['IMAGETYPE']
-#imageType = 'Full Size'
 imageClass = os.environ['IMAGECLASS']
-#imageClass = 'Expression'
 
-copyright = '''Questions regarding the expression data or their use in publications should be directed to Tom Freeman (tom.freeman@roslin.ed.ac.uk).'''
+captionFile = os.environ['CAPTION_FILE']
+captionLookup = {}
 
-caption = '''Image(s) contributed directly to GXD by the GUDMAP database.  Zoom capability for the image(s) can be accessed via the GUDMAP link at the bottom of this page.  GUDMAP provided the following information: image1.jpeg - High magnification showing the nephric duct (middle left) and ureteric bud (middle) which show no specific expression.  The metanephric mesenchyme shows some medium-strong expression, especially along its dorsal side, close to the ureteric bud; image2.jpeg - 10x  Caudal end of embryo on Right, hindlimb bud visible.  Medium-strong expression is visible dorsal to the metanephric mesenchyme.'''
+copyright = '''Image(s) contributed directly to GXD by the GUDMAP database.  Zoom capability for the image(s) can be accessed via the GUDMAP link at the bottom of this page.  GUDMAP provided the following information:  image1.jpeg - High magnification showing the nephric duct (middle left) and ureteric bud (middle) which show no specific expression.  The metanephric mesenchyme shows some medium-strong expression, especially along its dorsal side, close to the ureteric bud; image2.jpeg - 10x  Caudal end of embryo on Right, hindlimb bud visible.  Medium-strong expression is visible dorsal to the metanephric mesenchyme.'''
 
 #
 # Purpose: Open the files.
@@ -96,7 +95,9 @@ caption = '''Image(s) contributed directly to GXD by the GUDMAP database.  Zoom 
 # Throws: Nothing
 #
 def initialize ():
-    global fpPixFile, fpImageFile, fpImagePaneFile
+    global fpPixFile, fpCaptionFile
+    global fpImageFile, fpImagePaneFile
+    global captionLookup
 
     #
     # Open pixelDB file.
@@ -105,6 +106,15 @@ def initialize ():
         fpPixFile = open(pixFile, 'r')
     except:
         sys.stderr.write('Cannot open input file: ' + pixFile + '\n')
+        sys.exit(1)
+
+    #
+    # Open caption file.
+    #
+    try:
+        fpCaptionFile = open(captionFile, 'r')
+    except:
+        sys.stderr.write('Cannot open input file: ' + captionFile + '\n')
         sys.exit(1)
 
     #
@@ -122,6 +132,13 @@ def initialize ():
         sys.stderr.write('Cannot open output file: ' + imagePaneFile + '\n')
         sys.exit(1)
 
+    for line in fpCaptionFile.readlines():
+        tokens = string.split(line[:-1], '\t')
+	pixID = tokens[0]
+	caption = tokens[1]
+	captionLookup[pixID] = caption
+    print captionLookup
+
     return
 
 
@@ -134,6 +151,7 @@ def initialize ():
 #
 def closeFiles ():
     fpPixFile.close()
+    fpCaptionFile.close()
     fpImageFile.close()
     fpImagePaneFile.close()
 
@@ -163,6 +181,7 @@ def process ():
 	pixID = tokens[1]
 	figureLabel = jpg.replace('.jpg', '')
 	figureLabel = figureLabel.replace('GUDMAP', 'GUDMAP:')
+	caption = captionLookup[figureLabel]
 
 	(xdim, ydim) = jpeginfo.getDimensions(pixelDBDir + '/' + jpg)
 

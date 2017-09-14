@@ -134,5 +134,18 @@ fi
 date >> ${LOG}
 cd `dirname $0`
 
+#
+# Create accession IDs that are associated with the fullsize images
+# for building links to GUDMAP from the WI. 
+#
+echo "\n`date`" >> ${LOG}
+echo "Create GUDMAP accession IDs associated with the fullsize images" >> ${LOG}
+${GXDIMAGELOAD}/gudmapimageAssoc.py >> ${LOG}
+if [ $? -ne 0 ] 
+then
+    echo 'gudmapImageAssoc.py failed' >> ${LOG}
+    exit 1
+fi
+
 date >> ${LOG}
 exit 0
