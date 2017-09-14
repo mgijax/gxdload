@@ -91,7 +91,7 @@ date >> ${LOG}
 cd ${IMAGELOADDATADIR}
 date >> ${LOG}
 echo 'process copyright' >> ${LOG}
-${NOTELOAD}/mginoteload.py -S${MGD_DBSERVER} -D${MGD_DBNAME} -U${MGD_DBUSER} -P${MGD_DBPASSWORDFILE} -I${COPYRIGHTFILE} -M${NOTELOADMODE} -O${IMAGE_OBJECTTYPE} -T\"${COPYRIGHTNOTETYPE}\" >> ${LOG}
+${NOTELOAD}/mginoteload.py -S${MGD_DBSERVER} -D${MGD_DBNAME} -U${MGD_DBUSER} -P${MGD_DBPASSWORDFILE} -I${COPYRIGHTFILE} -M${NOTELOADMODE} -O${IMAGE_OBJECTTYPE} -T\"${COPYRIGHT_NOTETYPE}\" >> ${LOG}
 if [ $? -ne 0 ]
 then
     echo '${NOTELOAD}/mginoteload.py copyright failed' >> ${LOG}
@@ -99,6 +99,19 @@ then
 fi
 date >> ${LOG}
 
+#
+# process caption
+#
+cd ${IMAGELOADDATADIR}
+date >> ${LOG}
+echo 'process caption' >> ${LOG}
+${NOTELOAD}/mginoteload.py -S${MGD_DBSERVER} -D${MGD_DBNAME} -U${MGD_DBUSER} -P${MGD_DBPASSWORDFILE} -I${CAPTIONFILE} -M${NOTELOADMODE} -O${IMAGE_OBJECTTYPE} -T\"${CAPTION_NOTETYPE}\" >> ${LOG}
+if [ $? -ne 0 ]
+then
+    echo '${NOTELOAD}/mginoteload.py caption failed' >> ${LOG}
+    exit 1
+fi
+date >> ${LOG}
 cd `dirname $0`
 
 date >> ${LOG}
