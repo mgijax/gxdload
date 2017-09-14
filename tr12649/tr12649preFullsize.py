@@ -83,8 +83,7 @@ imageType = os.environ['IMAGETYPE']
 
 copyright = '''Questions regarding the expression data or their use in publications should be directed to Tom Freeman (tom.freeman@roslin.ed.ac.uk).'''
 
-caption = '''Image(s) contributed directly to GXD by the GUDMAP database.  Zoom capability for the image(s) can be accessed via the GUD
-MAP link at the bottom of this page.  GUDMAP provided the following information: image1.jpeg - High magnification showing the nephric duct (middle left) and ureteric bud (middle) which show no specific expression.  The metanephric mesenchyme shows some medium-strong expression, especially along its dorsal side, close to the ureteric bud; image2.jpeg - 10x  Caudal end of embryo on Right, hindlimb bud visible.  Medium-strong expression is visible dorsal to the metanephric mesenchyme.'''
+caption = '''Image(s) contributed directly to GXD by the GUDMAP database.  Zoom capability for the image(s) can be accessed via the GUDMAP link at the bottom of this page.  GUDMAP provided the following information: image1.jpeg - High magnification showing the nephric duct (middle left) and ureteric bud (middle) which show no specific expression.  The metanephric mesenchyme shows some medium-strong expression, especially along its dorsal side, close to the ureteric bud; image2.jpeg - 10x  Caudal end of embryo on Right, hindlimb bud visible.  Medium-strong expression is visible dorsal to the metanephric mesenchyme.'''
 
 #
 # Purpose: Open the files.
