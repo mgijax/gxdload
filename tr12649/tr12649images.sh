@@ -45,7 +45,7 @@ touch ${LOG}
 #
 #date >> ${LOG}
 #echo 'Copy fullsize to Pixel DB' >> ${LOG}
-#${GXDIMAGELOAD}/pixload.csh ${FULLSIZE_IMAGE_DIR} ${PIXELDB_FILES} >> ${LOG}
+#${GXDIMAGELOAD}/pixload.csh ${FULLSIZE_IMAGE_DIR} ${PIX_FULLSIZE} >> ${LOG}
 #if [ $? -ne 0 ]
 #then
 #    echo 'pixload.sh failed' >> ${LOG}
