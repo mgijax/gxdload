@@ -80,6 +80,9 @@ imageFile = os.environ['IMAGEFILE']
 imagePaneFile = os.environ['IMAGEPANEFILE']
 jNumber = os.environ['REFERENCE']
 imageType = os.environ['IMAGETYPE']
+#imageType = 'Full Size'
+imageClass = os.environ['IMAGECLASS']
+#imageClass = 'Expression'
 
 copyright = '''Questions regarding the expression data or their use in publications should be directed to Tom Freeman (tom.freeman@roslin.ed.ac.uk).'''
 
@@ -163,8 +166,8 @@ def process ():
 	(xdim, ydim) = jpeginfo.getDimensions(pixelDBDir + '/' + jpg)
 
 	fpImageFile.write(jNumber + '\t' +
-			  FULLSIZE_IMAGE_KEY + '\t' +
 			  imageType + '\t' +
+			  imageClass + '\t' +
 			  pixID + '\t' +
 			  str(xdim) + '\t' +
 			  str(ydim) + '\t' +

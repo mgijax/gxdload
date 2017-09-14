@@ -17,28 +17,35 @@ touch ${LOG}
 #
 # delete all Image Captions for J:171409 not used
 #
-#cat - <<EOSQL | ${PG_DBUTILS}/bin/doisql.csh $0 | tee -a $LOG
+cat - <<EOSQL | ${PG_DBUTILS}/bin/doisql.csh $0 | tee -a $LOG
 
-#select i._image_key, i.figurelabel, i._refs_key, a.accID, n._note_key
-#into temp table todelete
-#from IMG_Image i, ACC_Accession a, MGI_Note_Image_View n
-#where i._image_key = a._object_key
-#and i._refs_key = 172505
-#and a.prefixpart = 'PIX:' 
-#and i._image_key = n._object_key
-#and n._mgitype_key = 9
-#and n._notetype_key = 1024
-#;
-#
-#select * from todelete
-#;
-#
-#delete from MGI_Note n
-#using todelete d
-#where d._Note_key = n._Note_key
-#;
-#
-#EOSQL
+select i._Image_key, i.figureLabel
+into temporary table todelete
+from IMG_Image i, IMG_ImagePane ii
+where i._Refs_key = 172505
+and i._Image_key = ii._Image_key
+and not exists (select 1
+    from GXD_Assay a, GXD_Specimen s, GXD_InSituResult isr, GXD_InSituResultImage p 
+    where i._Refs_key = a._Refs_key 
+    and a._AssayType_key in (1,6,9,10,11) 
+    and a._Assay_key = s._Assay_key 
+    and s._Specimen_key = isr._Specimen_key 
+    and isr._Result_key = p._Result_key
+    and ii._ImagePane_key = p._ImagePane_key
+)
+order by i.figureLabel
+;
+
+select * from todelete
+;
+
+--delete from MGI_Note n
+--using todelete d
+--where d._Note_key = n._Note_key
+--;
+
+EOSQL
+exit 0
 
 #
 # Copy fullsize images to Pixel DB.
