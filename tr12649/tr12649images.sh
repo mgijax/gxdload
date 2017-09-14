@@ -65,7 +65,6 @@ then
     exit 1
 fi
 date >> ${LOG}
-exit 0
 
 #
 # Load fullsize images
