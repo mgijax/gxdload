@@ -82,10 +82,9 @@ jNumber = os.environ['REFERENCE']
 imageType = os.environ['IMAGETYPE']
 imageClass = os.environ['IMAGECLASS']
 
-captionFile = os.environ['CAPTION_FILE']
+textFile = os.environ['TEXT_FILE']
+copyrightLookup = {}
 captionLookup = {}
-
-copyright = '''Image(s) contributed directly to GXD by the GUDMAP database.  Zoom capability for the image(s) can be accessed via the GUDMAP link at the bottom of this page.  GUDMAP provided the following information:  image1.jpeg - High magnification showing the nephric duct (middle left) and ureteric bud (middle) which show no specific expression.  The metanephric mesenchyme shows some medium-strong expression, especially along its dorsal side, close to the ureteric bud; image2.jpeg - 10x  Caudal end of embryo on Right, hindlimb bud visible.  Medium-strong expression is visible dorsal to the metanephric mesenchyme.'''
 
 #
 # Purpose: Open the files.
@@ -95,9 +94,9 @@ copyright = '''Image(s) contributed directly to GXD by the GUDMAP database.  Zoo
 # Throws: Nothing
 #
 def initialize ():
-    global fpPixFile, fpCaptionFile
+    global fpPixFile, fpTextFile
     global fpImageFile, fpImagePaneFile
-    global captionLookup
+    global copyrightLookup, captionLookup
 
     #
     # Open pixelDB file.
@@ -109,12 +108,12 @@ def initialize ():
         sys.exit(1)
 
     #
-    # Open caption file.
+    # Open copyright/caption file.
     #
     try:
-        fpCaptionFile = open(captionFile, 'r')
+        fpTextFile = open(textFile, 'r')
     except:
-        sys.stderr.write('Cannot open input file: ' + captionFile + '\n')
+        sys.stderr.write('Cannot open input file: ' + textFile + '\n')
         sys.exit(1)
 
     #
@@ -132,12 +131,13 @@ def initialize ():
         sys.stderr.write('Cannot open output file: ' + imagePaneFile + '\n')
         sys.exit(1)
 
-    for line in fpCaptionFile.readlines():
+    for line in fpTextFile.readlines():
         tokens = string.split(line[:-1], '\t')
 	pixID = tokens[0]
-	caption = tokens[1]
+	copyright = tokens[1]
+	caption = tokens[2]
+	copyrightLookup[pixID] = copyright
 	captionLookup[pixID] = caption
-    print captionLookup
 
     return
 
@@ -151,7 +151,7 @@ def initialize ():
 #
 def closeFiles ():
     fpPixFile.close()
-    fpCaptionFile.close()
+    fpTextFile.close()
     fpImageFile.close()
     fpImagePaneFile.close()
 
@@ -181,6 +181,7 @@ def process ():
 	pixID = tokens[1]
 	figureLabel = jpg.replace('.jpg', '')
 	figureLabel = figureLabel.replace('GUDMAP', 'GUDMAP:')
+	copyright = copyrightLookup[figureLabel]
 	caption = captionLookup[figureLabel]
 
 	(xdim, ydim) = jpeginfo.getDimensions(pixelDBDir + '/' + jpg)
