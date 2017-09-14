@@ -162,6 +162,7 @@ def process ():
 	jpg = tokens[0]
 	pixID = tokens[1]
 	figureLabel = jpg.replace('.jpg', '')
+	figureLabel = figureLabel.replace('GUDMAP', 'GUDMAP:')
 
 	(xdim, ydim) = jpeginfo.getDimensions(pixelDBDir + '/' + jpg)
 

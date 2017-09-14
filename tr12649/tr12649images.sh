@@ -39,13 +39,12 @@ order by i.figureLabel
 select * from todelete
 ;
 
---delete from MGI_Note n
---using todelete d
---where d._Note_key = n._Note_key
---;
+delete from IMG_Image i
+using todelete d
+where d._Image_key = i._Image_key
+;
 
 EOSQL
-exit 0
 
 #
 # Copy fullsize images to Pixel DB.
