@@ -16,7 +16,7 @@
 #  Env Vars:
 #
 #      PIXELDBDATA
-#      IMAGE_FILE
+#      IMAGE_FULLSIZE
 #      IMAGEPANE_FULLSIZE
 #      REFERENCE
 #
@@ -29,7 +29,7 @@
 #
 #  Outputs:
 #
-#      IMAGE_FILE - Tab-delimited fields:
+#      IMAGE_FULLSIZE - Tab-delimited fields:
 #
 #          1) Reference (J:226028)
 #          2) Fullsize image key (blank)
@@ -42,7 +42,7 @@
 #          9) Caption note
 #          10) Image info
 #
-#      IMAGEPANE_FILE - Tab-delimited fields:
+#      IMAGEPANE_FULLSIZE - Tab-delimited fields:
 #
 #           1) PIX ID (####)
 #           2: Pane Label
@@ -76,8 +76,8 @@ URL = ''
 #
 pixelDBDir = os.environ['FULLSIZE_IMAGE_DIR']
 pixFile = os.environ['PIX_FULLSIZE']
-imageFile = os.environ['IMAGEFILE']
-imagePaneFile = os.environ['IMAGEPANEFILE']
+imageFile = os.environ['IMAGE_FULLSIZE']
+imagePaneFile = os.environ['IMAGEPANE_FULLSIZE']
 jNumber = os.environ['REFERENCE']
 imageType = os.environ['IMAGETYPE']
 

@@ -15,88 +15,84 @@ rm -rf ${LOG}
 touch ${LOG}
  
 #
+# delete all Image Captions for J:171409 not used
+#
+#cat - <<EOSQL | ${PG_DBUTILS}/bin/doisql.csh $0 | tee -a $LOG
+
+#select i._image_key, i.figurelabel, i._refs_key, a.accID, n._note_key
+#into temp table todelete
+#from IMG_Image i, ACC_Accession a, MGI_Note_Image_View n
+#where i._image_key = a._object_key
+#and i._refs_key = 172505
+#and a.prefixpart = 'PIX:' 
+#and i._image_key = n._object_key
+#and n._mgitype_key = 9
+#and n._notetype_key = 1024
+#;
+#
+#select * from todelete
+#;
+#
+#delete from MGI_Note n
+#using todelete d
+#where d._Note_key = n._Note_key
+#;
+#
+#EOSQL
+
+#
 # Copy fullsize images to Pixel DB.
 #
-echo "\n`date`" >> ${LOG}
-echo "Copy fullsize to Pixel DB" >> ${LOG}
-${GXDIMAGELOAD}/pixload.csh ${FULLSIZE_IMAGE_DIR} ${PIXELDB_FILES} >> ${LOG}
-if [ $? -ne 0 ]
-then
-    echo 'pixload.sh failed' >> ${LOG}
-    exit 1
-fi
-exit 0
+#date >> ${LOG}
+#echo 'Copy fullsize to Pixel DB' >> ${LOG}
+#${GXDIMAGELOAD}/pixload.csh ${FULLSIZE_IMAGE_DIR} ${PIXELDB_FILES} >> ${LOG}
+#if [ $? -ne 0 ]
+#then
+#    echo 'pixload.sh failed' >> ${LOG}
+#    exit 1
+#fi
+#date >> ${LOG}
 
 #
 # Create fullsize image input files for the GXD image load.
 #
-echo "\n`date`" >> ${LOG}
-echo "Create fullsize image input files for the GXD image load" >> ${LOG}
-${GXDIMAGELOAD}/tr12649preFullsize.py >> ${LOG}
+date >> ${LOG}
+echo 'Create fullsize image input files for the GXD image load' >> ${LOG}
+${GXDLOAD}/tr12649/tr12649preFullsize.py >> ${LOG}
 if [ $? -ne 0 ]
 then
     echo 'tr12649preFullsize.py failed' >> ${LOG}
     exit 1
 fi
+date >> ${LOG}
+exit 0
 
 #
-# Create the fullsize image stubs.
+# Load fullsize images
 #
-IMAGEFILE=${IMAGE_FULLSIZE}; export IMAGEFILE
-IMAGEPANEFILE=${IMAGEPANE_FULLSIZE}; export IMAGEPANEFILE
-OUTFILE_QUALIFIER=${QUALIFIER_FULLSIZE}; export OUTFILE_QUALIFIER
-
-echo "\n`date`" >> ${LOG}
-echo "Create the fullsize image stubs" >> ${LOG}
+date >> ${LOG}
+echo 'Load fullsize images' >> ${LOG}
 ${GXDIMAGELOAD}/gxdimageload.py >> ${LOG}
 if [ $? -ne 0 ]
 then
     echo 'gxdimageload.py failed' >> ${LOG}
     exit 1
 fi
+date >> ${LOG}
 
 #
-# The note load creates output files in the current directory, so go to
-# the directory where the files should be located.
+# process copyright
 #
 cd ${IMAGELOADDATADIR}
-
-#
-# Load copyright notes.
-#
-echo "\n`date`" >> ${LOG}
-echo "Load copyright notes" >> ${LOG}
-${NOTELOAD}/mginoteload.py -S${MGD_DBSERVER} -D${MGD_DBNAME} -U${MGD_DBUSER} -P${MGD_DBPASSWORDFILE} -I${COPYRIGHTFILE} -M${NOTELOADMODE} -O${IMAGE_OBJECTTYPE} -T${COPYRIGHT_NOTETYPE} >> ${LOG}
+date >> ${LOG}
+echo 'process copyright' >> ${LOG}
+${NOTELOAD}/mginoteload.py -S${MGD_DBSERVER} -D${MGD_DBNAME} -U${MGD_DBUSER} -P${MGD_DBPASSWORDFILE} -I${COPYRIGHTFILE} -M${NOTELOADMODE} -O${IMAGE_OBJECTTYPE} -T\"${COPYRIGHTNOTETYPE}\" >> ${LOG}
 if [ $? -ne 0 ]
 then
-    echo 'mginoteload.py failed' >> ${LOG}
+    echo '${NOTELOAD}/mginoteload.py copyright failed' >> ${LOG}
     exit 1
 fi
-
-#
-# Load caption notes.
-#
-echo "\n`date`" >> ${LOG}
-echo "Load caption notes" >> ${LOG}
-${NOTELOAD}/mginoteload.py -S${MGD_DBSERVER} -D${MGD_DBNAME} -U${MGD_DBUSER} -P${MGD_DBPASSWORDFILE} -I${CAPTIONFILE} -M${NOTELOADMODE} -O${IMAGE_OBJECTTYPE} -T${CAPTION_NOTETYPE} >> ${LOG}
-if [ $? -ne 0 ]
-then
-    echo 'mginoteload.py failed' >> ${LOG}
-    exit 1
-fi
-
-#
-# Create accession IDs that are associated with the fullsize images
-# for building links to GUDMAP from the WI.
-#
-echo "\n`date`" >> ${LOG}
-echo "Create GUDMAP accession IDs associated with the fullsize images" >> ${LOG}
-${GXDIMAGELOAD}/tr12649imageAssoc.py >> ${LOG}
-if [ $? -ne 0 ]
-then
-    echo 'tr12649imageAssoc.py failed' >> ${LOG}
-    exit 1
-fi
+date >> ${LOG}
 
 cd `dirname $0`
 
