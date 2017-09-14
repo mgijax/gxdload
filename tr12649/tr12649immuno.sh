@@ -1,14 +1,14 @@
 #!/bin/sh
 
 #
-# TR 11471
+# TR 12649
 #
 # Wrapper script for loading
 #
 
 cd `dirname $0`
 
-. ./tr11471.config
+. ./tr12649.config
 
 LOG=${PROJECTDIR}/$0.log
 rm -rf ${LOG}
@@ -26,10 +26,10 @@ touch ${LOG}
 #
 echo "\n`date`" >> ${LOG}
 echo "Create the input files for the immunohistochemistry load" >> ${LOG}
-${ASSAYLOAD}/tr11471immuno.py >> ${LOG}
+${ASSAYLOAD}/tr12649immuno.py >> ${LOG}
 if [ $? -ne 0 ]
 then
-    echo 'tr11471immuno.py failed' >> ${LOG}
+    echo 'tr12649immuno.py failed' >> ${LOG}
     exit 1
 fi
 

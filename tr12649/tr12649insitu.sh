@@ -1,14 +1,14 @@
 #!/bin/sh
 
 #
-# TR 11471
+# TR 12649
 #
 # Wrapper script for loading
 #
 
 cd `dirname $0`
 
-. ./tr11471.config
+. ./tr12649.config
 
 LOG=${PROJECTDIR}/$0.log
 rm -rf ${LOG}
@@ -44,11 +44,11 @@ EOSQL
 #
 echo "\n`date`" >> ${LOG}
 echo "Create the input files for the in situ load" >> ${LOG}
-${ASSAYLOAD}/tr11471insitu.py
-#${ASSAYLOAD}/tr11471insitu.py >> ${LOG}
+${ASSAYLOAD}/tr12649insitu.py
+#${ASSAYLOAD}/tr12649insitu.py >> ${LOG}
 if [ $? -ne 0 ]
 then
-    echo 'tr11471insitu.py failed' >> ${LOG}
+    echo 'tr12649insitu.py failed' >> ${LOG}
     exit 1
 fi
 
