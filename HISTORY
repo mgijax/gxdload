@@ -1,3 +1,10 @@
+TAG: gxdload-6-0-10-4
+DATE: 10/20/2017
+STAFF: sc
+CHANGES: TR12250 littriage project
+1) create insitu template script and add call to BIB_updateWFStatusGXD
+    use this script as starting point for future GXD adhoc loads
+
 TAG: gxdload-6-0-10-3
 TAG: gxdload-6-0-10-2
 TAG: gxdload-6-0-10-1
