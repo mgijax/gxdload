@@ -14,12 +14,12 @@ LOG=${PROJECTDIR}/$0.log
 rm -rf ${LOG}
 touch ${LOG}
  
-#
-# IF DOING WI TESTING, RUN:
-#	wi/admin/cleanup
-#
-# TO REMOVE CACHED DATA
-#
+cat - <<EOSQL | ${PG_DBUTILS}/bin/doisql.csh $0 | tee -a $LOG
+delete from GXD_Assay where _Refs_key = 172505
+;
+delete from GXD_Index where _Refs_key = 172505
+;
+EOSQL
 
 #
 # Create the input files for the immunohistochemistry load.

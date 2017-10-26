@@ -32,6 +32,7 @@ then
     echo 'tr12649insitu.py failed' >> ${LOG}
     exit 1
 fi
+exit 0
 
 # Load the assays and results.
 #
@@ -43,7 +44,6 @@ then
     echo 'insituload.py failed' >> ${LOG}
     exit 1
 fi
-exit 0
 
 #
 #
