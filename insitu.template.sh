@@ -17,19 +17,14 @@ rm -rf ${LOG}
 touch ${LOG}
  
 #
-# IF DOING WI TESTING, RUN:
-#	wi/admin/cleanup
+# remove existing assay/indexes, if necessary
+# by Reference
 #
-# TO REMOVE CACHED DATA
-#
-
 cat - <<EOSQL | ${PG_DBUTILS}/bin/doisql.csh $0 | tee -a ${LOG}
 delete from GXD_Assay where _Refs_key = 172505
 ;
-
 delete from GXD_Index where _Refs_key = 172505
 ;
-
 EOSQL
 
 #

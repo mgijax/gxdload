@@ -22,7 +22,7 @@ date >> ${LOG}
 cat - <<EOSQL | ${PG_DBUTILS}/bin/doisql.csh $0 | tee -a $LOG
 
 -- will delete these from pixeldb after this is processed on production
-select a.accID
+select '/data/pixeldb/' || a.numericPart || '.jpg', i.figureLabel
 from IMG_Image i, IMG_ImagePane ii, ACC_Accession a
 where i._Refs_key = 172505
 and i._Image_key = ii._Image_key

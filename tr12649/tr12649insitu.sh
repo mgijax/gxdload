@@ -14,29 +14,11 @@ LOG=${PROJECTDIR}/$0.log
 rm -rf ${LOG}
 touch ${LOG}
  
-#
-# IF DOING WI TESTING, RUN:
-#	wi/admin/cleanup
-#
-# TO REMOVE CACHED DATA
-#
-
-cat - <<EOSQL | doisql.csh $MGD_DBSERVER $MGD_DBNAME $0 | tee -a $LOG
-
-use $MGD_DBNAME
-go
-
+cat - <<EOSQL | ${PG_DBUTILS}/bin/doisql.csh $0 | tee -a $LOG
 delete from GXD_Assay where _Refs_key = 172505
-go
-
+;
 delete from GXD_Index where _Refs_key = 172505
-go
-
-checkpoint
-go
-
-end
-
+;
 EOSQL
 
 #
@@ -44,8 +26,7 @@ EOSQL
 #
 echo "\n`date`" >> ${LOG}
 echo "Create the input files for the in situ load" >> ${LOG}
-${ASSAYLOAD}/tr12649insitu.py
-#${ASSAYLOAD}/tr12649insitu.py >> ${LOG}
+${ASSAYLOAD}/tr12649insitu.py >> ${LOG}
 if [ $? -ne 0 ]
 then
     echo 'tr12649insitu.py failed' >> ${LOG}
@@ -62,6 +43,7 @@ then
     echo 'insituload.py failed' >> ${LOG}
     exit 1
 fi
+exit 0
 
 #
 #
