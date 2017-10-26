@@ -67,17 +67,7 @@ then
     exit 1
 fi
 
-#
-# Reload the IMG_Cache table.
-#
-echo "\n`date`" >> ${LOG}
-echo "Reload the IMG_Cache table" >> ${LOG}
-${MGICACHELOAD}/imgcache.csh >> ${LOG}
-if [ $? -ne 0 ]
-then
-    echo 'imgcache.csh failed' >> ${LOG}
-    exit 1
-fi
+${GXDLOAD}/tr12649/qcnightly_reports.csh >> ${LOG}
 
 date >> ${LOG}
 exit 0
