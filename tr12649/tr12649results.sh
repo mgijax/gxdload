@@ -21,14 +21,14 @@ touch ${LOG}
 # delete indexes
 #
 cat - <<EOSQL | ${PG_DBUTILS}/bin/doisql.csh $0 | tee -a $LOG
---delete from GXD_InSituResult insitu
---using GXD_Assay a, GXD_Specimen s
---where a._Refs_key = 172505
---and a._Assay_key = s._Assay_key
---and s._Specimen_key = insitu._Specimen_key
---;
---delete from GXD_Index where _Refs_key = 172505
---;
+delete from GXD_InSituResult insitu
+using GXD_Assay a, GXD_Specimen s
+where a._Refs_key = 172505
+and a._Assay_key = s._Assay_key
+and s._Specimen_key = insitu._Specimen_key
+;
+delete from GXD_Index where _Refs_key = 172505
+;
 EOSQL
 
 # Load the results only

@@ -328,13 +328,15 @@ def processResultsFile():
 	    emapsID = tokens[3]
 	    resultNote = tokens[4]
 	    imagePane = tokens[5]
+	    mgiIDs = tokens[6]
         except:
             exit(1, 'Invalid Line (%d): %s\n' % (lineNum, line))
 
 	if specimenID not in specimenLookup:
 	    diagFile.write('no specimen: ' + specimenID + '\n')
 	    continue
-	specimenKey = specimenLookup[specimenID][0]
+	specimenKey = []
+	specimenKey.append(specimenLookup[specimenID][0])
 
 	strengthKey = gxdloadlib.verifyStrength(strength, lineNum, errorFile)
 	patternKey = gxdloadlib.verifyPattern(pattern, lineNum, errorFile)
@@ -359,31 +361,43 @@ def processResultsFile():
 	    prevSpecimen = 0
 	    sequenceNum = 1
 
-        outResultFile.write(
-	        str(resultKey) + DELIM + \
-	        str(specimenKey) + DELIM + \
-	        str(strengthKey) + DELIM + \
-	        str(patternKey) + DELIM + \
-	        str(sequenceNum) + DELIM + \
-	        str(resultNote) + DELIM + \
-	        loaddate + DELIM + loaddate + CRT)
+	if len(mgiIDs) > 0:
+	    for m in mgiIDs:
+                results = db.sql('''
+    	            select distinct s._Specimen_key
+	            from ACC_Accession a, GXD_Specimen s
+	            where a.accID = '%s'
+		    and a._Object_key = s._Assay_key
+	            ''' % (m), 'auto')
+                for r in results:
+		    specimenKey.append(r['_Specimen_key'])
 
-	outResultStFile.write(
-	    str(resultKey) + DELIM + \
-	    str(structureKey) + DELIM + \
-	    str(stageKey) + DELIM + \
-	    loaddate + DELIM + loaddate + CRT)
+	for sKey in specimenKey:
+             outResultFile.write(
+	             str(resultKey) + DELIM + \
+	             str(sKey) + DELIM + \
+	             str(strengthKey) + DELIM + \
+	             str(patternKey) + DELIM + \
+	             str(sequenceNum) + DELIM + \
+	             str(resultNote) + DELIM + \
+	             loaddate + DELIM + loaddate + CRT)
 
-	if imagePane in imagePaneLookup:
-	    imageKey = imagePaneLookup[imagePane][0]
-            outResultImageFile.write(str(resultKey) + DELIM + \
-				str(imageKey) + DELIM + \
-	        		loaddate + DELIM + loaddate + CRT)
+	     outResultStFile.write(
+	         str(resultKey) + DELIM + \
+	         str(structureKey) + DELIM + \
+	         str(stageKey) + DELIM + \
+	         loaddate + DELIM + loaddate + CRT)
 
-        resultKey = resultKey + 1
-	sequenceNum = sequenceNum + 1
-	prevSpecimen = specimenKey
+	     if imagePane in imagePaneLookup:
+	         imageKey = imagePaneLookup[imagePane][0]
+                 outResultImageFile.write(str(resultKey) + DELIM + \
+				     str(imageKey) + DELIM + \
+	        		     loaddate + DELIM + loaddate + CRT)
 
+             resultKey = resultKey + 1
+	     sequenceNum = sequenceNum + 1
+	     prevSpecimen = specimenKey
+     
     #	end of "for line in inResultsFile.readlines():"
 
     return
