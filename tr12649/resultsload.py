@@ -326,7 +326,7 @@ def processResultsFile():
 	    strength = tokens[1]
 	    pattern = tokens[2]
 	    emapsID = tokens[3]
-	    #resultNote = tokens[4]
+	    resultNote = tokens[4]
 	    imagePane = tokens[5]
         except:
             exit(1, 'Invalid Line (%d): %s\n' % (lineNum, line))
@@ -365,7 +365,7 @@ def processResultsFile():
 	        str(strengthKey) + DELIM + \
 	        str(patternKey) + DELIM + \
 	        str(sequenceNum) + DELIM + \
-	        DELIM + \
+	        str(resultNote) + DELIM + \
 	        loaddate + DELIM + loaddate + CRT)
 
 	outResultStFile.write(
