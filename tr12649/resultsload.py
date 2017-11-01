@@ -335,8 +335,6 @@ def processResultsFile():
 	if specimenID not in specimenLookup:
 	    diagFile.write('no specimen: ' + specimenID + '\n')
 	    continue
-	specimenKey = []
-	specimenKey.append(specimenLookup[specimenID][0])
 
 	strengthKey = gxdloadlib.verifyStrength(strength, lineNum, errorFile)
 	patternKey = gxdloadlib.verifyPattern(pattern, lineNum, errorFile)
@@ -357,22 +355,28 @@ def processResultsFile():
         if error:
             continue
 
-	if prevSpecimen != specimenKey:
+	if prevSpecimen != specimenID:
 	    prevSpecimen = 0
 	    sequenceNum = 1
 
+	specimenKey = []
 	if len(mgiIDs) > 0:
-	    for m in mgiIDs:
+	    for m in mgiIDs.split('|'):
                 results = db.sql('''
     	            select distinct s._Specimen_key
 	            from ACC_Accession a, GXD_Specimen s
 	            where a.accID = '%s'
 		    and a._Object_key = s._Assay_key
-	            ''' % (m), 'auto')
+		    and s.specimenLabel = '%s'
+	            ''' % (m, specimenID), 'auto')
                 for r in results:
 		    specimenKey.append(r['_Specimen_key'])
 
+	else:
+	    specimenKey.append(specimenLookup[specimenID][0])
+
 	for sKey in specimenKey:
+
              outResultFile.write(
 	             str(resultKey) + DELIM + \
 	             str(sKey) + DELIM + \
@@ -395,8 +399,9 @@ def processResultsFile():
 	        		     loaddate + DELIM + loaddate + CRT)
 
              resultKey = resultKey + 1
-	     sequenceNum = sequenceNum + 1
-	     prevSpecimen = specimenKey
+
+	  sequenceNum = sequenceNum + 1
+	  prevSpecimen = specimenID
      
     #	end of "for line in inResultsFile.readlines():"
 
