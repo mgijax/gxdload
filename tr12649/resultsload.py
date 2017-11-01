@@ -400,8 +400,8 @@ def processResultsFile():
 
              resultKey = resultKey + 1
 
-	  sequenceNum = sequenceNum + 1
-	  prevSpecimen = specimenID
+	sequenceNum = sequenceNum + 1
+	prevSpecimen = specimenID
      
     #	end of "for line in inResultsFile.readlines():"
 
