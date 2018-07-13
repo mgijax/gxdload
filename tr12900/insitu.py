@@ -208,7 +208,11 @@ def process():
 
 	    specimenLabel = tokens[s]
 	    age = tokens[s + 2]
-	    sex = 'Not Specified'
+
+	    if age in ('embryonic day 11.5', 'embryonic day 13.5'):
+	        sex = 'Not Specified'
+            else:
+	        sex = 'Male'
 
 	    specimenFile.write(str(assayKey) + TAB + \
 	        str(specimenKey) + TAB + \
