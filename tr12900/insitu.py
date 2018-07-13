@@ -40,12 +40,12 @@
 #		field 18,27,36,45,54,63,72: Embedding Method : Cryosection
 #		field 19,28,37,46,55,64,73: Hybridization    : section
 #		field 20,29,38,47,56,65,74: SpecimenNote     : null
-#		field 75,81,93,102,99,105,111: Strength      : Present (n=10,781), Absent (n=2,645)
-#		field 76,82,94,103,100,106,112: Pattern      : Not Specified (n=10,781), Not Applicable (n=2,645)
-#		field 77,83,95,104,101,107,113: Structure    : EMAPA:16894
-#		field 78,84,96,105,102,108,114: TS           : 
-#		field 79,85,97,106,103,109,115: Note         : null
-#		field 80,86,98,107,104,110,116: Image        : null
+#		field 75,81,93, 99,105,111: Strength      : Present (n=10,781), Absent (n=2,645)
+#		field 76,82,94,100,106,112: Pattern      : Not Specified (n=10,781), Not Applicable (n=2,645)
+#		field 77,83,95,101,107,113: Structure    : EMAPA:16894
+#		field 78,84,96,102,108,114: TS           : 
+#		field 79,85,97,103,109,115: Note         : null
+#		field 80,86,98,104,110,116: Image        : null
 #
 # Outputs:
 #
@@ -204,7 +204,8 @@ def process():
 #		field 20,29,38,47,56,65,74: SpecimenNote     : null
 
         specimenKey = 1
-	for s in range(11,65,9):
+	for s in (12,21,30,39,48,57,66):
+	    s = s - 1
 
 	    specimenLabel = tokens[s]
 	    age = tokens[s + 2]
@@ -226,18 +227,19 @@ def process():
 	        'section' + TAB + \
 	        CRT)
 
-#		field 75,81,93,102,99,105,111: Strength      : Present (n=10,781), Absent (n=2,645)
-#		field 76,82,94,103,100,106,112: Pattern      : Not Specified (n=10,781), Not Applicable (n=2,645)
-#		field 77,83,95,104,101,107,113: Structure    : EMAPA:16894
-#		field 78,84,96,105,102,108,114: TS           : 
-#		field 79,85,97,106,103,109,115: Note         : null
+#		field 75,81,93, 99,105,111: Strength      : Present (n=10,781), Absent (n=2,645)
+#		field 76,82,94,100,106,112: Pattern      : Not Specified (n=10,781), Not Applicable (n=2,645)
+#		field 77,83,95,101,107,113: Structure    : EMAPA:16894
+#		field 78,84,96,102,108,114: TS           : 
+#		field 79,85,97,103,109,115: Note         : null
+#		field 80,86,98,104,110,116: Image        : null
 
             resultKey = 1
-	    for r in range(74,110,6):
-
-		strength = tokens[r]
-		pattern = tokens[r + 1]
-		ts = tokens[r + 3]
+	    for r in (75,81,93,99,105,111):
+	        r = r - 1
+	        strength = tokens[r]
+	        pattern = tokens[r + 1]
+	        ts = tokens[r + 3]
 
 	        resultsFile.write(str(assayKey) + TAB + \
 	            str(specimenKey) + TAB + \
@@ -248,7 +250,7 @@ def process():
 	            ts + TAB + \
 	            TAB + \
 	            CRT)
-
+    
 	        resultKey = resultKey + 1
 
             specimenKey = specimenKey + 1
