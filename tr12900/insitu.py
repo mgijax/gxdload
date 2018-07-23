@@ -190,7 +190,7 @@ def process():
             'J:215487' + TAB + \
             'RNA in situ' + TAB + \
 	    TAB + \
-            TAB + \
+	    tokens[9] + TAB + \
             'cms' + CRT)
 
 #		field 12,21,30,39,48,57,66: SpecimenLabel    :
@@ -227,32 +227,40 @@ def process():
 	        'section' + TAB + \
 	        CRT)
 
-#		field 75,81,93, 99,105,111: Strength      : Present (n=10,781), Absent (n=2,645)
-#		field 76,82,94,100,106,112: Pattern      : Not Specified (n=10,781), Not Applicable (n=2,645)
-#		field 77,83,95,101,107,113: Structure    : EMAPA:16894
-#		field 78,84,96,102,108,114: TS           : 
-#		field 79,85,97,103,109,115: Note         : null
-#		field 80,86,98,104,110,116: Image        : null
+#		field 75,81,87,93, 99,105,111: Strength      : Present (n=10,781), Absent (n=2,645)
+#		field 76,82,88,94,100,106,112: Pattern      : Not Specified (n=10,781), Not Applicable (n=2,645)
+#		field 77,83,89,95,101,107,113: Structure    : EMAPA:16894
+#		field 78,84,90,96,102,108,114: TS           : 
+#		field 79,85,91,97,103,109,115: Note         : null
+#		field 80,86,92,98,104,110,116: Image        : null
+
+	    if s == 11:
+	        r = 75
+	    elif s == 20:
+	        r = 81
+	    elif s == 29:
+	        r = 87
+	    elif s == 38:
+	        r = 93
+	    elif s == 47:
+	        r = 99
+	    elif s == 56:
+	        r = 105
+	    elif s == 65:
+	        r = 111
 
             resultKey = 1
-	    for r in (75,81,93,99,105,111):
-	        r = r - 1
-	        strength = tokens[r]
-	        pattern = tokens[r + 1]
-	        ts = tokens[r + 3]
-
-	        resultsFile.write(str(assayKey) + TAB + \
-	            str(specimenKey) + TAB + \
-	            str(resultKey) + TAB + \
-	            strength + TAB + \
-	            pattern + TAB + \
-	            'EMAPA:16894' + TAB + \
-	            ts + TAB + \
-	            TAB + \
-	            CRT)
+	    r = r - 1
+	    resultsFile.write(str(assayKey) + TAB + \
+	        str(specimenKey) + TAB + \
+	        str(resultKey) + TAB + \
+	        tokens[r] + TAB + \
+	        tokens[r + 1] + TAB + \
+	        'EMAPA:16894' + TAB + \
+	        tokens[r + 3] + TAB + \
+	        TAB + \
+	        CRT)
     
-	        resultKey = resultKey + 1
-
             specimenKey = specimenKey + 1
 
 	assayKey = assayKey + 1
