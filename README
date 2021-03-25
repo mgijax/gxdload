@@ -1,0 +1,5 @@
+Only tr13240 is python3 friendly - if you copy scirpts, do so from there
+it also uses PILlow (Python Image Library) which I had installed as
+replacement for lib_py_jpeg which is retired because it does not work
+with python3
+
