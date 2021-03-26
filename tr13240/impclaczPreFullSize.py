@@ -81,8 +81,15 @@ imageFile = os.environ['IMAGEFILE']
 # gxdimageload IMG_Pane input file
 imagePaneFile = os.environ['IMAGEPANEFILE'] 
 
+# figure label file (this was grepped out of connie's file /mgi/all/wts_projects/13200/13240/imageload/image_loader.txt.lotsofblanklines
+figureLabelFile =  os.environ['FIGURELABELFILE']
+
 jNumber = os.environ['REFERENCE']
 copyright = 'Questions regarding this image or its use in publications should be directed to the International Mouse Phenotyping Consortium (IMPC) at <A HREF="http://www.mousephenotype.org/contact-us">http://www.mousephenotype.org/contact-us</A>'
+
+
+# {jpg name:prefix, ...}
+figureLabelPrefixDict = {}
 
 #
 # Purpose: Open the files.
@@ -92,7 +99,7 @@ copyright = 'Questions regarding this image or its use in publications should be
 # Throws: Nothing
 #
 def initialize ():
-    global fpPixFile, fpImageFile, fpImagePaneFile
+    global fpPixFile, fpImageFile, fpImagePaneFile, fpFigureLabelFile, figureLabelPrefixDict
 
     #
     # Open pixelDB mapping file.
@@ -118,6 +125,17 @@ def initialize ():
         sys.stderr.write('Cannot open output file: ' + imagePaneFile + '\n')
         sys.exit(1)
 
+    try:
+        fpFigureLabelFile = open(figureLabelFile, 'r')
+    except:
+        sys.stderr.write('Cannot open input file: ' + figureLabelFile + '\n')
+        sys.exit(1)
+
+    for line in fpFigureLabelFile:
+        prefix, name = str.split(line, '_')
+        name = str.strip(name)
+        figureLabelPrefixDict[name] = prefix
+       
     return
 
 
@@ -149,8 +167,13 @@ def process ():
     for line in fpPixFile.readlines():
 
         tokens = str.split(line[:-1], '\t')
-
-        figureLabel = 'CCP-IMG_%s' % tokens[0]
+        jpgName = tokens[0]
+        jpgName = jpgName.replace('.jpg', '')
+        if jpgName not in figureLabelPrefixDict:
+            print('%s not in figureLabelPrefixDict' % jpgName)
+            continue
+        prefix = figureLabelPrefixDict[jpgName]
+        figureLabel = '%s_%s' % (prefix, jpgName)
         pixID = tokens[1]
 
         figureLabel = figureLabel.replace('.jpg', '')
