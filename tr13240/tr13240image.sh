@@ -26,7 +26,6 @@ then
     echo 'impclaczPreFullSize.py failed' >> ${LOG}
     exit 1
 fi
-date >> ${LOG}
 
 #
 # Load fullsize images
@@ -40,5 +39,18 @@ then
     exit 1
 fi
 
+#
+# process copyright
+#
+cd ${IMAGELOADDATADIR}
 date >> ${LOG}
+echo 'process copyright' >> ${LOG}
+${PYTHON} ${NOTELOAD}/mginoteload.py -S${MGD_DBSERVER} -D${MGD_DBNAME} -U${MGD_DBUSER} -P${MGD_DBPASSWORDFILE} -I${COPYRIGHTFILE} -M${NOTELOADMODE} -O${IMAGE_OBJECTTYPE} -T\"${COPYRIGHTNOTETYPE}\" >> ${LOG}
+if [ $? -ne 0 ]
+then
+    echo '${NOTELOAD}/mginoteload.py copyright failed' >> ${LOG}
+    exit 1
+fi
+date >> ${LOG}
+
 exit 0
