@@ -1,4 +1,3 @@
-#!/usr/local/bin/python
 
 #
 #  impclaczPrepFullSize.py
@@ -170,7 +169,7 @@ def process ():
         jpgName = tokens[0]
         jpgName = jpgName.replace('.jpg', '')
         if jpgName not in figureLabelPrefixDict:
-            print('%s not in figureLabelPrefixDict' % jpgName)
+            print(('%s not in figureLabelPrefixDict' % jpgName))
             continue
         prefix = figureLabelPrefixDict[jpgName]
         figureLabel = '%s_%s' % (prefix, jpgName)
