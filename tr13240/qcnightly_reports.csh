@@ -8,7 +8,7 @@
 # Usage: qcnightly_reports.csh
 #
 
-cd ${QCRPTS} && source ./Configuration
+cd `dirname $0` && source ./Configuration
 
 setenv LOG ${QCLOGSDIR}/`basename $0`.log
 rm -rf ${LOG}
@@ -33,13 +33,13 @@ foreach i (GXD_SpecTheilerAge.py GXD_SameStructure.py GXD_ImagesUnused.py)
     if ( $i == "GXD_Stats.py" ) then
         mv -f ${QCOUTPUTDIR}/`basename $i py`[0-9]*.rpt ${QCGXDARCHIVE}
         rm -rf ${QCOUTPUTDIR}/`basename $i py`current.rpt
-        $i >>& ${LOG}
+        ${PYTHON} $i >>& ${LOG}
         ln -s ${QCOUTPUTDIR}/`basename $i py`${DATE}.rpt ${QCOUTPUTDIR}/`basename $i py`current.rpt
     else if ( $i == "GO_stats.py" ) then
-        $i >>& ${LOG}
+        ${PYTHON} $i >>& ${LOG}
         cp -p ${QCOUTPUTDIR}/GO_stats.rpt ${QCGOARCHIVE}/GO_stats.`date +%Y%m%d`
     else
-        $i >>& ${LOG}
+         ${PYTHON} $i >>& ${LOG}
     endif
 end
 
