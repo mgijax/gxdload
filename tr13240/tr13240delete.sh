@@ -16,19 +16,19 @@ LOG=${PROJECTDIR}/tr13240delete.sh.log
 rm -rf ${LOG}
 touch ${LOG}
  
-date >> ${LOG}
-echo 'delete images' >> ${LOG}
-${GXDLOAD}/tr13240/deleteimages.csh >> $LOG
-date >> ${LOG}
+date | tee -a ${LOG}
+echo 'delete images' | tee -a ${LOG}
+${GXDLOAD}/tr13240/deleteimages.csh | tee -a $LOG
+date | tee -a ${LOG}
 
-date >> ${LOG}
-echo 'delete genotypes' >> ${LOG}
-${GXDLOAD}/tr13240/deletegenotypes.csh >> $LOG
-date >> ${LOG}
+date | tee -a ${LOG}
+echo 'delete genotypes' | tee -a ${LOG}
+${GXDLOAD}/tr13240/deletegenotypes.csh | tee -a $LOG
+date | tee -a ${LOG}
 
-date >> ${LOG}
-echo 'delete pixeldb' >> ${LOG}
-${GXDLOAD}/tr13240/deletepixeldb.csh >> $LOG
-date >> ${LOG}
+date | tee -a ${LOG}
+echo 'delete pixeldb' | tee -a ${LOG}
+${GXDLOAD}/tr13240/deletepixeldb.csh | tee -a $LOG
+date | tee -a ${LOG}
 
 exit 0
