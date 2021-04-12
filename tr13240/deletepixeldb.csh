@@ -37,11 +37,11 @@ date | tee -a $LOG
 #;
 #EOSQL
 
-#foreach i (`cat deletepixeldb.jpg`)
-#ls -l /data/pixeldb/$i.jpg >> $LOG
-##cp /data/pixeldb/$i.jpg pixeldb
-#rm -rf /data/pixeldb/$i.jpg
-#end
+foreach i (`cat deletepixeldb.jpg`)
+ls -l /data/pixeldb/$i.jpg >> $LOG
+#cp /data/pixeldb/$i.jpg pixeldb
+rm -rf /data/pixeldb/$i.jpg
+end
 
 date | tee -a $LOG
 
