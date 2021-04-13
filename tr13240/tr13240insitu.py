@@ -299,6 +299,7 @@ def process():
         if genotype in genotypeLookup:
             mgigenotype = genotypeLookup[genotype][0]
         else:
+            print('genotype not in GenotypeTranslation.txt: ' + genotype)
             continue
 
         if markerID != prevMarkerID:

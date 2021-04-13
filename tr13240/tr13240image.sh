@@ -18,24 +18,24 @@ touch ${LOG}
 #
 # Create fullsize image input files for the GXD image load.
 #
-date >> ${LOG}
-echo 'Create fullsize image input files for the GXD image load' >> ${LOG}
-${PYTHON} ${GXDLOAD}/tr13240/impclaczPreFullSize.py >> ${LOG}
+date | tee -a ${LOG}
+echo 'Create fullsize image input files for the GXD image load' | tee -a ${LOG}
+${PYTHON} ${GXDLOAD}/tr13240/impclaczPreFullSize.py | tee -a ${LOG}
 if [ $? -ne 0 ]
 then
-    echo 'impclaczPreFullSize.py failed' >> ${LOG}
+    echo 'impclaczPreFullSize.py failed' | tee -a ${LOG}
     exit 1
 fi
 
 #
 # Load fullsize images
 #
-date >> ${LOG}
-echo 'Load fullsize images' >> ${LOG}
-${PYTHON} ${GXDIMAGELOAD}/gxdimageload.py >> ${LOG}
+date | tee -a ${LOG}
+echo 'Load fullsize images' | tee -a ${LOG}
+${PYTHON} ${GXDIMAGELOAD}/gxdimageload.py | tee -a ${LOG}
 if [ $? -ne 0 ]
 then
-    echo 'gxdimageload.py failed' >> ${LOG}
+    echo 'gxdimageload.py failed' | tee -a ${LOG}
     exit 1
 fi
 
@@ -43,14 +43,14 @@ fi
 # process copyright
 #
 cd ${IMAGELOADDATADIR}
-date >> ${LOG}
-echo 'process copyright' >> ${LOG}
-${PYTHON} ${NOTELOAD}/mginoteload.py -S${MGD_DBSERVER} -D${MGD_DBNAME} -U${MGD_DBUSER} -P${MGD_DBPASSWORDFILE} -I${COPYRIGHTFILE} -M${NOTELOADMODE} -O${IMAGE_OBJECTTYPE} -T\"${COPYRIGHTNOTETYPE}\" >> ${LOG}
+date | tee -a ${LOG}
+echo 'process copyright' | tee -a ${LOG}
+${PYTHON} ${NOTELOAD}/mginoteload.py -S${MGD_DBSERVER} -D${MGD_DBNAME} -U${MGD_DBUSER} -P${MGD_DBPASSWORDFILE} -I${COPYRIGHTFILE} -M${NOTELOADMODE} -O${IMAGE_OBJECTTYPE} -T\"${COPYRIGHTNOTETYPE}\" | tee -a ${LOG}
 if [ $? -ne 0 ]
 then
-    echo '${NOTELOAD}/mginoteload.py copyright failed' >> ${LOG}
+    echo '${NOTELOAD}/mginoteload.py copyright failed' | tee -a ${LOG}
     exit 1
 fi
-date >> ${LOG}
+date | tee -a ${LOG}
 
 exit 0

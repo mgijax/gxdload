@@ -26,7 +26,7 @@ EOSQL
 #
 # Create the input files for the in situ load.
 #
-echo "\n`date`" | tee -a  ${LOG}
+date | tee -a  ${LOG}
 echo "Create the input files for the in situ load" | tee -a  ${LOG}
 ${PYTHON} ${GXDLOAD}/tr13240/tr13240insitu.py | tee -a  ${LOG}
 if [ $? -ne 0 ]
@@ -37,7 +37,7 @@ fi
 
 # Load the assays and results.
 #
-echo "\n`date`" | tee -a  ${LOG}
+date | tee -a  ${LOG}
 echo "Load the assays and results" | tee -a  ${LOG}
 ${PYTHON} ${ASSAYLOAD}/insituload.py | tee -a  ${LOG}
 if [ $? -ne 0 ]
@@ -49,7 +49,7 @@ fi
 #
 # Create the literature index for the new assays.
 #
-echo "\n`date`" | tee -a  ${LOG}
+date | tee -a  ${LOG}
 echo "Create the literature index for the new assays" | tee -a  ${LOG}
 ${PYTHON} ${ASSAYLOAD}/indexload.py | tee -a  ${LOG}
 if [ $? -ne 0 ]
@@ -61,7 +61,7 @@ fi
 #
 # Reload the GXD_Expression table.
 #
-echo "\n`date`" | tee -a  ${LOG}
+date | tee -a  ${LOG}
 echo "Reload the GXD_Expression table" | tee -a  ${LOG}
 ${MGICACHELOAD}/gxdexpression.csh | tee -a  ${LOG}
 if [ $? -ne 0 ]
@@ -73,7 +73,7 @@ fi
 #
 # Reload the MRK_Reference table.
 #
-echo "\n`date`" | tee -a  ${LOG}
+date | tee -a  ${LOG}
 echo "Reload the MRK_Reference table" | tee -a  ${LOG}
 ${MRKCACHELOAD}/mrkref.csh | tee -a  ${LOG}
 if [ $? -ne 0 ]
