@@ -6,11 +6,8 @@
 # Wrapper script for loading
 #
 
-if ( ${?MGICONFIG} == 0 ) then
-        setenv MGICONFIG /usr/local/mgi/live/mgiconfig
-endif
-
-source ${MGICONFIG}/master.config.csh
+cd `dirname $0`
+. ../Configuration
 
 cd ${GXDLOAD}/tr13240
 
