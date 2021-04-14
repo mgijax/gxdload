@@ -62,6 +62,18 @@ then
 fi
 
 #
+# update Copyright
+#
+date | tee -a  ${LOG}
+echo "Update Copyright" | tee -a  ${LOG}
+./copyright.csh | tee -a ${LOG}
+if [ $? -ne 0 ]
+then
+    echo 'copyright.csh failed' | tee -a  ${LOG}
+    exit 1
+fi
+
+#
 # Reload the GXD_Expression table.
 #
 date | tee -a  ${LOG}
