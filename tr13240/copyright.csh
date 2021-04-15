@@ -34,7 +34,7 @@ and c.note = 'Questions regarding this image or its use in publications should b
 select count(*) from toUpdate;
 
 update MGI_NoteChunk c
-set note = 'This image is from International Mouse Phenotyping Consortium (IMPC) and is displayed under the terms of the  <A HREF="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</A>.'
+set note = 'This image is from the International Mouse Phenotyping Consortium (IMPC) and is displayed under the terms of the <A HREF="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</A>.'
 from toUpdate u
 where c._note_key = u._note_key
 ;
