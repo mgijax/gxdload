@@ -66,7 +66,7 @@ fi
 #
 date | tee -a  ${LOG}
 echo "Update Copyright" | tee -a  ${LOG}
-./copyright.csh | tee -a ${LOG}
+${GXDLOAD}/tr13240/copyright.csh | tee -a ${LOG}
 if [ $? -ne 0 ]
 then
     echo 'copyright.csh failed' | tee -a  ${LOG}
