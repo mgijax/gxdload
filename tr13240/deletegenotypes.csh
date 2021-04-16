@@ -45,10 +45,10 @@ create index idx_1 on toDelete(_Genotype_key);
 
 select * from toDelete;
 
---delete from GXD_Genotype
---using toDelete
---where toDelete._Genotype_key = GXD_Genotype._Genotype_key
---;
+delete from GXD_Genotype
+using toDelete
+where toDelete._Genotype_key = GXD_Genotype._Genotype_key
+;
 
 EOSQL
 
