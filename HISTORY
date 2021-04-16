@@ -1,3 +1,4 @@
+TAG: gxdload-6-0-16-10
 TAG: gxdload-6-0-16-9
 TAG: gxdload-6-0-16-8
 TAG: gxdload-6-0-16-7
@@ -9,6 +10,7 @@ STAFF: lec
 CHANGES:
 TR13240/update IMPC lacZ data in GXD/J:228563
 processing assays
+delete obsolete Image records
 
 TAG: gxdload-6-0-16-3
 TAG: gxdload-6-0-16-2

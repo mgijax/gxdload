@@ -42,10 +42,10 @@ select * from toDelete;
 
 --select numericPart from toDelete order by numericPart;
 
---delete from IMG_Image
---using toDelete
---where toDelete._Image_key = IMG_Image._Image_key
---;
+delete from IMG_Image
+using toDelete
+where toDelete._Image_key = IMG_Image._Image_key
+;
 
 EOSQL
 
